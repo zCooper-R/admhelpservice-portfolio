@@ -1,0 +1,15 @@
+{% extends 'orders/email/_mail.html' %}
+
+{% block content %}
+    <p><b>Персональный компьютер #{{ object.id }}</b></p>
+    <p>Категория: {{ object.get_category_display }}</p>
+    {% if object.support_specialist %}
+        <p>Исполнитель: {{ object.support_specialist.user.get_last_name_with_initials }}</p>
+    {% endif %}
+    <p>Клиент: {{ object.client }}</p>
+    {% if object.description %}
+        Комментарий:<br>
+        <pre>{{ object.description }}</pre>
+    {% endif %}
+    <p>Адрес: {{ object.address }}, кабинет №{{ object.cabinet }}. тел. {{ object.phone }}</p>
+{% endblock content %}

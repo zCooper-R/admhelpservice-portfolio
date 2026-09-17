@@ -1,0 +1,12 @@
+{% load widget_tweaks %}
+{% load order_tags %}
+<div id="div_id_category" class="form-group">
+    <i class="fa fa-folder"></i>
+    <label for="{{ form.category.id_for_label }}" class="label-bold">{{ form.category.label }}</label>
+    {% render_category_descriptions_popover form.category %}
+    <small id="hint_category" class="form-text text-muted">{{ form.category.help_text }}</small>
+    {% render_field form.category class="form-select" %}
+    <div class="invalid-feedback">
+        Пожалуйста, выберите подкатегорию.
+    </div>
+</div>

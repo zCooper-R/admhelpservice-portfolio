@@ -1,0 +1,57 @@
+{% url 'index' as index %}
+{% url 'help' as help %}
+{% url 'orders:orders_list' as orders_list %}
+{% url 'orders:tasks_list' as tasks_list %}
+<footer class="my-3 orders-footer">
+    <div class="container orders-footer__shell">
+        <div class="orders-footer__grid">
+            <div class="orders-footer__column">
+                <div class="orders-footer__eyebrow">Help Service</div>
+                <h2 class="orders-footer__title">Единый сервис внутренних обращений</h2>
+                <p class="orders-footer__text">
+                    Рабочее пространство для заявок, задач и справочной информации.
+                    Интерфейс помогает быстрее ориентироваться в обращениях и меньше тратить времени на поиск нужного действия.
+                </p>
+            </div>
+
+            <div class="orders-footer__column">
+                <div class="orders-footer__column-title">Быстрые ссылки</div>
+                <nav class="orders-footer__links">
+                    <a href="{{ index }}" class="orders-footer__link {% if request.path == index %}is-active{% endif %}">Главная</a>
+                    <a href="{{ orders_list }}" class="orders-footer__link {% if request.path == orders_list %}is-active{% endif %}">Мои заявки</a>
+                    {% if user.is_superuser or perms.orders.change_orderprinter or perms.orders.change_ordertransport or perms.orders.change_orderpc or perms.orders.change_orderaho or perms.orders.change_ordervks %}
+                        <a href="{{ tasks_list }}" class="orders-footer__link {% if request.path == tasks_list %}is-active{% endif %}">Задачи</a>
+                    {% endif %}
+                    <a href="{{ help }}" class="orders-footer__link {% if request.path == help %}is-active{% endif %}">Помощь</a>
+                </nav>
+            </div>
+
+            <div class="orders-footer__column">
+                <div class="orders-footer__column-title">Контакты</div>
+                <div class="orders-footer__contact-list">
+                    <div class="orders-footer__contact-item">
+                        <span class="orders-footer__contact-label">Поддержка</span>
+                        <a class="orders-footer__contact-link" href="mailto:helpdesk@example.com">helpdesk@example.com</a>
+                    </div>
+                    <div class="orders-footer__contact-item">
+                        <span class="orders-footer__contact-label">Телефон</span>
+                        <span class="orders-footer__contact-value">7-86-52, вн. 2552</span>
+                    </div>
+                    <div class="orders-footer__contact-item">
+                        <span class="orders-footer__contact-label">Версия</span>
+                        <span class="orders-footer__contact-value">МКУ "СКО" v{{ VERSION }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="copyright" class="orders-footer__bottom">
+            <span>&copy; 2022 - <span id="ordersFooterYear"></span> МКУ "СКО"</span>
+            <span>Разработка: отдел АСУ, Литвин О.О.</span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ordersFooterYear').textContent = new Date().getFullYear();
+    </script>
+</footer>

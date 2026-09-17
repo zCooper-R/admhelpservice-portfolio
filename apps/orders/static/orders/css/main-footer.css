@@ -1,0 +1,18 @@
+﻿/* ============================= */
+/*         FOOTER                */
+/* ============================= */
+footer { font-family: inherit; }
+footer.my-3 { margin: 1.1rem auto 0 !important; padding: 0 0 1.35rem; }
+.orders-footer__shell { padding: 1.3rem 1.35rem 1rem; }
+.orders-footer__grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(220px, .85fr) minmax(240px, .95fr); gap: 1.15rem; padding-bottom: 1rem; }
+.orders-footer__column { min-width: 0; }
+.orders-footer__title { font-size: 1.35rem; margin: 0 0 .7rem; }
+.orders-footer__column-title { margin-bottom: .7rem; color: #f8fbff; font-size: 1rem; font-weight: 700; }
+.orders-footer__links { display: flex; flex-direction: column; gap: .5rem; }
+.orders-footer__link { display: inline-flex; align-items: center; width: fit-content; padding: .5rem .8rem; border-radius: 999px; color: rgba(226,235,246,.78); background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); }
+.orders-footer__link:hover, .orders-footer__link.is-active { color: #fff; background: rgba(58,134,255,.18); border-color: rgba(141,214,255,.18); }
+.orders-footer__contact-list { display: grid; gap: .7rem; }
+.orders-footer__contact-item { padding: .7rem .85rem; border-radius: 1rem; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); }
+.orders-footer__contact-label { display: block; margin-bottom: .18rem; color: #9adfff; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.orders-footer__contact-link, .orders-footer__contact-value { color: #eef5fb; }
+.orders-footer__bottom { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.08); color: rgba(209,221,236,.68) !important; line-height: 1.7; }

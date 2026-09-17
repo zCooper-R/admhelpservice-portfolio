@@ -1,0 +1,96 @@
+﻿/* ============================= */
+/*         BASE STYLES           */
+/* ============================= */
+html {
+  scroll-behavior: smooth;
+
+}
+
+body {
+  font-size: 1.10rem;
+  background:
+    radial-gradient(circle at top left, rgba(47, 128, 237, 0.15), transparent 26%),
+    radial-gradient(circle at 85% 18%, rgba(0, 190, 255, 0.08), transparent 20%),
+    linear-gradient(180deg, #111923 0%, var(--bg-color) 38%, #0c121a 100%);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  position: relative;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(132, 204, 255, 0.08), transparent 20%),
+    radial-gradient(circle at 88% 82%, rgba(76, 154, 255, 0.06), transparent 18%);
+  opacity: 0.9;
+  z-index: -1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+label:has(~ *:required)::after,
+label:has(~ .input-group *:required)::after {
+  content: '*';
+  color: red;
+  margin-left: 0.15rem;
+}
+
+/* ============================= */
+/*         FORM PRIMITIVES       */
+/* ============================= */
+.form-select,
+select.form-select,
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23d9e8f4' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m3 6 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .8rem center;
+  background-size: .88rem .88rem;
+  padding-right: 2.45rem;
+}
+
+.form-select:focus,
+select.form-select:focus,
+select.form-control:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23d9e8f4' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m3 6 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .95rem center;
+  background-size: .95rem .95rem;
+}
+
+.scroll-to-top {
+  border: 0;
+  border-radius: 5px;
+  position: fixed;
+  right: 2rem;
+  bottom: 6rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  text-align: center;
+  color: #fff;
+  background: var(--color-scroll-bg);
+  line-height: 46px;
+  display: none;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.scroll-to-top:hover {
+  background: var(--color-scroll-hover);
+  color: white;
+}
+
+.scroll-to-top i {
+  font-weight: 800;
+}

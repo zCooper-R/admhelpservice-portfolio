@@ -1,0 +1,55 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+
+{% block modal_form_open %}{% endblock modal_form_open %}
+{% block modal_form_close %}{% endblock modal_form_close %}
+{% block modal_title %}#{{ object.id }} {{ object }}{% endblock modal_title %}
+
+{% block modal_body_content %}
+    <ul class="nav nav-tabs mb-3" id="orderDetailTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="order-details-tab" data-bs-toggle="tab" data-bs-target="#order-details-pane" type="button" role="tab" aria-controls="order-details-pane" aria-selected="true">Детали</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="order-discussion-tab" data-bs-toggle="tab" data-bs-target="#order-discussion-pane" type="button" role="tab" aria-controls="order-discussion-pane" aria-selected="false">
+                Обсуждение
+                <span class="badge rounded-pill text-bg-warning ms-2 order-thread__tab-badge" data-order-discussion-badge {% if not discussion_unread_count %}hidden{% endif %}>{{ discussion_unread_count }}</span>
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="order-details-pane" role="tabpanel" aria-labelledby="order-details-tab" tabindex="0">
+            <div class="orders-modal-section">
+                <div class="orders-modal-section__header">
+                    <div class="orders-modal-section__eyebrow">Общие сведения</div>
+                    <h4 class="orders-modal-section__title">Карточка заявки</h4>
+                </div>
+                {% include 'orders/modal/_detail_order_common_items.html' %}
+                <div class="orders-detail-grid">
+                    {% if object.post %}
+                        <div class="orders-detail-card">
+                            <div class="orders-detail-card__label">Должность</div>
+                            <div class="orders-detail-card__value">{{ object.post }}</div>
+                        </div>
+                    {% endif %}
+                    {% if object.pc_name %}
+                        <div class="orders-detail-card">
+                            <div class="orders-detail-card__label">Имя ПК</div>
+                            <div class="orders-detail-card__value">{{ object.pc_name }}</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="order-discussion-pane" role="tabpanel" aria-labelledby="order-discussion-tab" tabindex="0">
+            {% if wrapper_order %}
+                {% include "order_communication/_thread_lazy_placeholder.html" with order=wrapper_order %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock modal_body_content %}
+
+{% block modal_footer %}
+    {% if can_update_order %}
+        <button type="button" class="btn btn-sm btn-primary openOrderModalBtn" data-url="{% url 'orders:order_account_update' object.pk %}">Изменить</button>
+    {% endif %}
+{% endblock modal_footer %}

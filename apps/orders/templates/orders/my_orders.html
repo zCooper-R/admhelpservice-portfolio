@@ -1,0 +1,122 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% load helpers %}
+{% block title %}Мои заявки{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'orders/css/vendor/dataTables2.3.2.jqueryui.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'orders/css/datatables.css' %}"/>
+{% endblock head %}
+
+{% block content %}
+    <section class="orders-page-shell">
+        <div class="orders-page-shell__hero">
+            <div>
+                <div class="orders-page-shell__eyebrow">Журнал обращений</div>
+                <h1 class="orders-page-shell__title">Мои заявки</h1>
+                <p class="orders-page-shell__subtitle">
+                    Здесь можно быстро проверить, что происходит с обращением: кто должен ответить сейчас,
+                    есть ли просрочка по сроку и требуется ли что-то от вас.
+                </p>
+            </div>
+            <div class="orders-page-shell__hero-note">
+                <div class="orders-page-shell__hero-note-label">Подсказка</div>
+                <div class="orders-page-shell__hero-note-text">
+                    Поле «Ожидание» помогает понять, нужен ли ваш ответ сейчас или заявка уже в работе у исполнителя.
+                </div>
+            </div>
+        </div>
+
+        <div class="orders-table-card">
+            <div class="orders-table-card__header">
+                <div>
+                    <div class="orders-table-card__eyebrow">Список</div>
+                    <h2 class="orders-table-card__title">Все ваши обращения</h2>
+                </div>
+                <p class="orders-table-card__note">
+                    Открывайте карточку из таблицы, чтобы быстро проверить статус, понять, кто должен ответить сейчас,
+                    и не пропустить обращения, где от вас ждут уточнение, подтверждение или следующий шаг.
+                </p>
+            </div>
+
+            <div class="orders-table-card__body">
+                <!-- TODO: when backend/JS support appears, add quick filters for "Нужен мой ответ", "Жду ответа", "Открытые", "Закрытые". -->
+                <div class="orders-sla-filter" data-sla-filter-group>
+                    <span class="orders-sla-filter__label">SLA:</span>
+                    <button type="button" class="orders-sla-filter__button is-active" data-sla-filter="all">Все</button>
+                    <button type="button" class="orders-sla-filter__button" data-sla-filter="overdue">Просрочено</button>
+                    <button type="button" class="orders-sla-filter__button" data-sla-filter="warning">На грани</button>
+                    <button type="button" class="orders-sla-filter__button" data-sla-filter="none">Без SLA</button>
+                </div>
+                <table id="orders_list" class="table table-sm table-striped table-dark table-hover table-bordered orders-data-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Категория</th>
+                        <th scope="col">Инициатор</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Ожидание</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col">Действия</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block extra_js %}
+    <script type="module">
+        import { initDataTable } from "{% static 'orders/js/utils/datatables-init.js' %}";
+        import {
+            renderCategoryCell,
+            renderClientCell,
+            renderStatusWithIcon,
+            renderWaitingForCell,
+            renderDetailButton
+        } from "{% static 'orders/js/renderers.js' %}";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initDataTable({
+                tableId: "orders_list",
+                ajaxUrl: "{% url 'orders:orders_list' %}",
+                csrfToken: "{{ csrf_token }}",
+                slaFilterSelector: "[data-sla-filter-group]",
+                searchPlaceholder: "Поиск по категории, инициатору, статусу, ожиданию, дате",
+                columns: [
+                    {
+                        data: null,
+                        render: (data, type, row, meta) => meta.row + 1 + meta.settings._iDisplayStart,
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: "category",
+                        render: renderCategoryCell,
+                    },
+                    {
+                        data: "client",
+                        render: renderClientCell,
+                    },
+                    {
+                        data: "status",
+                        render: renderStatusWithIcon,
+                    },
+                    {
+                        data: "waiting_for",
+                        render: renderWaitingForCell,
+                    },
+                    { data: "created_at" },
+                    {
+                        data: "url",
+                        orderable: false,
+                        searchable: false,
+                        render: renderDetailButton,
+                    },
+                ],
+            });
+        });
+    </script>
+    <script src="{% static 'orders/js/vendor/dataTables2.3.2.min.js' %}"></script>
+{% endblock extra_js %}

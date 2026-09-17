@@ -1,0 +1,103 @@
+{% extends 'orders/base.html' %}
+
+{% block title %}Статус бэкапов{% endblock title %}
+
+{% block content %}
+<section class="orders-page-shell backup-status-page">
+    <div class="orders-page-shell__hero backup-status-page__hero">
+        <div>
+            <div class="orders-page-shell__eyebrow">Резервное копирование</div>
+            <h1 class="orders-page-shell__title">Статус PostgreSQL-бэкапов</h1>
+            <p class="orders-page-shell__subtitle">
+                Наблюдение за OS-level backup: без скачивания dump-файлов, без запуска pg_dump и без операций восстановления из веб-интерфейса.
+            </p>
+            <div class="backup-status-page__chips">
+                <span><i class="bi bi-database"></i> helpservice</span>
+                <span><i class="bi bi-archive"></i> pg_dump -Fc</span>
+                <span><i class="bi bi-clock-history"></i> systemd timer</span>
+            </div>
+        </div>
+        <div class="orders-page-shell__hero-note backup-status-page__health backup-status-page__health--{{ backup_status.health.level|lower }}">
+            <div class="backup-status-page__health-top">
+                <span class="backup-status-page__health-icon">
+                    {% if backup_status.health.level == 'OK' %}
+                        <i class="bi bi-check2-circle"></i>
+                    {% elif backup_status.health.level == 'WARNING' %}
+                        <i class="bi bi-exclamation-triangle"></i>
+                    {% else %}
+                        <i class="bi bi-x-octagon"></i>
+                    {% endif %}
+                </span>
+                <div>
+                    <div class="orders-page-shell__hero-note-label">Общий статус</div>
+                    <div class="backup-status-page__health-value">{{ backup_status.health.level }}</div>
+                </div>
+            </div>
+            <div class="orders-page-shell__hero-note-text backup-status-page__health-text">
+                {{ backup_status.health.message }}
+                {% if backup_status.health.weekly_warning %}
+                    <div class="backup-status-page__health-note">{{ backup_status.health.weekly_warning }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="backup-status-page__grid">
+        {% include 'core/includes/_backup_file_card.html' with title='Daily-бэкап' item=backup_status.daily icon='bi-calendar2-check' %}
+        {% include 'core/includes/_backup_file_card.html' with title='Weekly-бэкап' item=backup_status.weekly icon='bi-calendar-week' %}
+
+        <div class="backup-status-card backup-status-card--timer">
+            <div class="backup-status-card__header">
+                <div class="backup-status-card__heading">
+                    <span class="backup-status-card__icon backup-status-card__icon--timer">
+                        <i class="bi bi-clock-history"></i>
+                    </span>
+                    <div>
+                        <div class="backup-status-card__eyebrow">systemd</div>
+                        <h2 class="backup-status-card__title">Таймер</h2>
+                    </div>
+                </div>
+                <span class="backup-status-card__status {% if backup_status.timer.active == 'active' %}backup-status-card__status--ok{% elif backup_status.timer.active == 'inactive' %}backup-status-card__status--warning{% else %}backup-status-card__status--neutral{% endif %}">
+                    {{ backup_status.timer.active|default:'unknown' }}
+                </span>
+            </div>
+            <dl class="backup-status-card__facts">
+                <dt>Следующий запуск</dt>
+                <dd>{{ backup_status.timer.next_run|default:'Недоступно' }}</dd>
+                <dt>Последний запуск</dt>
+                <dd>{{ backup_status.timer.last_run|default:'Недоступно' }}</dd>
+            </dl>
+            {% if backup_status.timer.message %}
+                <div class="backup-status-card__message">{{ backup_status.timer.message }}</div>
+            {% endif %}
+            {% if backup_status.timer.raw %}
+                <pre class="backup-status-page__code">{{ backup_status.timer.raw }}</pre>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="orders-table-card backup-status-page__log-card">
+        <div class="orders-table-card__header backup-status-page__log-header">
+            <div class="backup-status-card__heading">
+                <span class="backup-status-card__icon backup-status-card__icon--log">
+                    <i class="bi bi-terminal"></i>
+                </span>
+                <div>
+                    <div class="orders-table-card__eyebrow">Журнал</div>
+                    <h2 class="orders-table-card__title">Последние строки лога</h2>
+                </div>
+            </div>
+            <p class="orders-table-card__note">
+                `/var/log/admhelpservice-backup.log` · последние 50 строк
+            </p>
+        </div>
+        {% if backup_status.log.available %}
+            <pre class="backup-status-page__log">{% for line in backup_status.log.lines %}{{ line }}
+{% empty %}Лог пуст.
+{% endfor %}</pre>
+        {% else %}
+            <div class="backup-status-page__notice backup-status-page__notice--warning">{{ backup_status.log.message }}</div>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}

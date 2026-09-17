@@ -1,0 +1,64 @@
+<section
+    class="order-thread"
+    data-order-thread-root
+    data-order-id="{{ order.id }}"
+    data-poll-url="{% url 'order_communication:thread_poll' order.id %}"
+    data-read-url="{{ mark_read_url }}"
+    data-latest-message-id="{{ latest_message_id|default:'' }}"
+    data-unread-count="{{ discussion_unread_count|default:0 }}"
+    data-first-unread-message-id="{{ first_unread_message_id|default:'' }}"
+>
+    <div class="order-thread__header d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <div class="order-thread__eyebrow">Обсуждение заявки</div>
+            <h5 class="mb-0 order-thread__title">Переписка и служебные заметки</h5>
+        </div>
+        {% if thread %}
+            <small class="order-thread__meta" data-order-thread-meta>
+                Сообщений: {{ messages_count }}{% if latest_visible_message_at %} • обновлено {{ latest_visible_message_at|date:"d.m.Y H:i" }}{% endif %}
+            </small>
+        {% endif %}
+    </div>
+
+    {% include "order_communication/_timeline.html" with thread=thread messages=messages first_unread_message_id=first_unread_message_id %}
+
+    <div class="order-thread__composer-stack mt-3">
+        {% if can_post_internal_note %}
+            <div class="order-thread__composer-switcher" data-order-thread-composer-switcher>
+                <button
+                    type="button"
+                    class="order-thread__composer-switch is-active"
+                    data-composer-target="public_reply"
+                >
+                    Публичный ответ
+                </button>
+                <button
+                    type="button"
+                    class="order-thread__composer-switch"
+                    data-composer-target="internal_note"
+                >
+                    Внутренняя заметка
+                </button>
+            </div>
+        {% endif %}
+
+        <div
+            class="order-thread__composer-pane"
+            data-order-thread-composer-pane="public_reply"
+            {% if can_post_internal_note %}data-is-active="true"{% endif %}
+        >
+            {% include "order_communication/_composer.html" with form=public_form action_url=public_reply_url composer_type='public_reply' submit_label='Отправить ответ' composer_title='Публичный ответ' composer_hint='Увидят заявитель и сотрудники' %}
+        </div>
+
+        {% if can_post_internal_note %}
+            <div
+                class="order-thread__composer-pane"
+                data-order-thread-composer-pane="internal_note"
+                data-is-active="false"
+                hidden
+            >
+                {% include "order_communication/_composer.html" with form=internal_form action_url=internal_note_url composer_type='internal_note' submit_label='Сохранить заметку' composer_title='Внутренняя заметка' composer_hint='Только для сотрудников' %}
+            </div>
+        {% endif %}
+    </div>
+</section>

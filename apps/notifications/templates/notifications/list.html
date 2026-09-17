@@ -1,0 +1,57 @@
+{% extends "orders/base.html" %}
+
+{% block title %}Уведомления{% endblock title %}
+
+{% block content %}
+    <section class="notifications-page py-4">
+        <div class="orders-page-shell__hero notifications-page__hero">
+            <div>
+                <div class="orders-page-shell__eyebrow">Уведомления</div>
+                <h1 class="orders-page-shell__title">Все важные обновления по заявкам</h1>
+                <p class="orders-page-shell__subtitle">
+                    Здесь собраны изменения по вашим обращениям: новые назначения, статусы, комментарии и обновления деталей.
+                </p>
+            </div>
+            <div class="orders-page-shell__hero-note notifications-page__hero-note">
+                <span class="orders-page-shell__hero-note-label">Непрочитанные</span>
+                <strong class="notifications-page__metric" data-notification-count-label>{{ unread_count_display }}</strong>
+                <p class="orders-page-shell__hero-note-text">Список обновляется автоматически без перезагрузки страницы.</p>
+            </div>
+        </div>
+
+        <section class="orders-table-card notifications-page__card">
+            <div class="orders-table-card__header notifications-page__header">
+                <div>
+                    <div class="orders-table-card__eyebrow">История</div>
+                    <h2 class="orders-table-card__title">Лента уведомлений</h2>
+                </div>
+                <div class="notifications-actions">
+                    <form method="post" action="{% url 'notifications:mark_all_read' %}" data-notification-action>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light notifications-actions__button">Прочитать все</button>
+                    </form>
+            <form
+                method="post"
+                action="{% url 'notifications:delete_all' %}"
+                data-notification-action
+                data-confirm="Удалить всю историю уведомлений?"
+                data-confirm-title="Очистка уведомлений"
+                data-confirm-kicker="Уведомления"
+                data-confirm-heading="Подтвердите очистку"
+                data-confirm-hint="Это действие удалит всю историю уведомлений без возможности восстановления."
+                data-confirm-button-text="Очистить"
+                data-confirm-button-class="btn-danger"
+                data-confirm-icon="fas fa-trash"
+            >
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger notifications-actions__button">Очистить историю</button>
+                    </form>
+                </div>
+            </div>
+
+            <div data-notifications-list>
+                {% include "notifications/_list.html" %}
+            </div>
+        </section>
+    </section>
+{% endblock content %}

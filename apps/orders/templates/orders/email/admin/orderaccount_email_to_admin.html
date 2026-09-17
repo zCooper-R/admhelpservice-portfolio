@@ -1,0 +1,34 @@
+{% extends 'orders/email/_mail.html' %}
+
+{% block content %}
+    <p><b>Учётная запись #{{ object.id }}</b></p>
+    <p>Категория: {{ object.get_category_display }}</p>
+    {% if object.support_specialist %}
+        <p>Исполнитель: {{ object.support_specialist.user.get_last_name_with_initials }}</p>
+    {% endif %}
+    <p>Подразделение: {{ object.departament }}</p>
+    {% if object.post %}
+        <p>Должность: {{ object.post }}</p>
+    {% endif %}
+    <p>Клиент: {{ object.client }}</p>
+    <p>Адрес: {{ object.address }}, кабинет №{{ object.cabinet }}. тел. {{ object.phone }}</p>
+    {% if object.pc_name %}
+        <p>Имя ПК: {{ object.pc_name }}</p>
+    {% endif %}
+    {% if object.email_needed %}
+        <p>Служебная электронная почта: Да</p>
+    {% endif %}
+    {% if object.tranzit_folder %}
+        <p>Доступ к папке "Документы отдела": Да</p>
+    {% endif %}
+    {% if object.sedo %}
+        <p>Учётная запись СЭДО: Да</p>
+    {% endif %}
+    {% if object.information_systems %}
+        <p>Доступ к информационным системам(ИС): Да</p>
+    {% endif %}
+    {% if object.description %}
+        Комментарий:<br>
+        <pre>{{ object.description }}</pre>
+    {% endif %}
+{% endblock content %}

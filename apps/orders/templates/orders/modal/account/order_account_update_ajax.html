@@ -1,0 +1,11 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+{% block form_id %}account-update{% endblock form_id %}
+{% block modal_title %}#{{ object.id }} {{ object }}{% endblock modal_title %}
+
+{% block modal_body_content %}
+    {% include 'orders/modal/_simple_update_fields.html' %}
+{% endblock modal_body_content %}
+
+{% block modal_footer %}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+{% endblock modal_footer %}

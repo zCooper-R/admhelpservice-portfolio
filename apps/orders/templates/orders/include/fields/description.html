@@ -1,0 +1,12 @@
+{% load widget_tweaks %}
+<div id="div_id_description" class="form-group">
+    <i class="fa fa-comment-dots"></i>
+    <label for="{{ form.description.id_for_label }}" class="label-bold">{{ form.description.label }}</label>
+    {% render_field form.description class="form-control" placeholder="Опишите подробнее, если есть дополнительные детали." %}
+    <div class="invalid-feedback">
+        Пожалуйста, введите описание.
+    </div>
+    <small id="hint_description" class="form-text text-muted">
+        {{ form.description.help_text }}
+    </small>
+</div>

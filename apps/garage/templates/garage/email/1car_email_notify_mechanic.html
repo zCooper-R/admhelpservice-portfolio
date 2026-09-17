@@ -1,0 +1,12 @@
+{% extends 'garage/email/_mail.html' %}
+
+{% block content %}
+    <p><b>{{ object.get_type_of_work_display }} #{{ object.id }}</b></p>
+    <p>Автомобиль: {{ object.car }}</p>
+    <p>Водитель: {{ object.car.driver }}</p>
+    {% if object.notes %}
+        Комментарий:<br>
+        <pre>{{ object.notes }}</pre>
+    {% endif %}
+    <p>Адрес: {{ object.address }}, кабинет №{{ object.cabinet }}. тел. {{ object.phone }}</p>
+{% endblock content %}

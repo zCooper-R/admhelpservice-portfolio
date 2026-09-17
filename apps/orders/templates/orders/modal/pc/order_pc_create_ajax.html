@@ -1,0 +1,11 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+{% load order_tags %}
+{% load widget_tweaks %}
+
+{% block form_id %}pc{% endblock %}
+
+{% block modal_title %}Персональный компьютер{% endblock %}
+
+{% block modal_body_content %}
+    {% include 'orders/modal/pc/order_pc_fields.html' %}
+{% endblock %}

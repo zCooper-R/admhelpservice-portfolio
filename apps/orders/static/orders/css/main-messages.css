@@ -1,0 +1,11 @@
+﻿/* ============================= */
+/*         MESSAGES              */
+/* ============================= */
+.toast-container { position: absolute; z-index: 1090; width: max-content; max-width: 100%; pointer-events: none; }
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+.toast.slide-in { animation-name: slideInRight; }
+.toast.slide-out { animation-name: slideOutRight; }
+.toast { gap: .75rem; position: static !important; width: auto; min-width: 370px; max-width: 400px; font-size: 1rem; color: #212529; pointer-events: auto; background-color: rgba(33,37,41,.85); background-clip: padding-box; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); border-radius: .375rem; overflow: hidden; animation-duration: .5s; animation-fill-mode: both; }
+.toast-header { display: flex; align-items: center; padding: .5rem .75rem; color: rgba(222,226,230,.75); background-color: rgba(33,37,41,.85); background-clip: padding-box; border-bottom: 1px solid rgba(255,255,255,.15); }
+.toast-body { padding: 1rem; color: rgb(220,224,228); }

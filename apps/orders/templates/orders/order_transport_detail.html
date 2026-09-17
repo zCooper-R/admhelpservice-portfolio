@@ -1,0 +1,39 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Детали заявки Транспорт</h3>
+    <div class="row">
+        {% if object %}
+            #{{ object.pk }}<br>
+            Создатель: {{ object.owner }}<br>
+            Город: {{ object.transport_city }}<br>
+            Маршрут: {{ object.address }}<br>
+            Инициатор: {{ object.client }} | {{ object.phone }}<br>
+            Время прибытия: {{ object.transport_arrival_datetime }}<br>
+            {% if object.comeback %}
+                Время возвращения: {{ object.comeback_datetime }}<br>
+            {% endif %}
+            Пассажиры: {{ object.transport_passengers }}<br>
+            {% if object.driver %}
+                Водитель: {{ object.driver.name }} | {{ object.driver.phone }}<br>
+            {% endif %}
+            {% if object.driver.transport %}
+                Автомобиль: {{ object.driver.transport }}<br>
+            {% endif %}
+            {% if object.transport_departure_datetime %}
+                Время отправления: {{ object.transport_departure_datetime }}<br>
+            {% endif %}
+            {% if object.transport_departure_location %}
+                Место отправления: {{ object.transport_departure_location }}<br>
+            {% endif %}
+            {% if object.description %}
+                Дополнительно: {{ object.description }}<br>
+            {% endif %}
+
+            Статус: {{ object.get_status_display }}<br>
+            Создано: {{ object.created_at }}<br>
+            Изменено: {{ object.updated_at }}<br>
+        {% endif %}
+    </div>
+{% endblock content %}

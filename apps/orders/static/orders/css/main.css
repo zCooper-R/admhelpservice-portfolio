@@ -1,0 +1,13 @@
+﻿/* Главный файл-индекс для стилей orders. */
+/* Меняйте нужный смысловой файл ниже, а не весь main.css целиком. */
+
+@import url("./main-base.css");
+@import url("./main-navigation.css");
+@import url("./main-pages.css");
+@import url("./main-messages.css");
+@import url("./main-categories.css");
+@import url("./main-footer.css");
+@import url("./main-modals.css");
+@import url("./main-popovers.css");
+@import url("./main-system.css");
+@import url("./main-responsive.css");

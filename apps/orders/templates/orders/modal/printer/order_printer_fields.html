@@ -1,0 +1,44 @@
+{% extends 'orders/include/_base_order_fields.html' %}
+{% load widget_tweaks %}
+{% load order_tags %}
+
+{% block order_extra_fields %}
+    <div class="orders-modal-section">
+        <div class="orders-modal-section__header">
+            <div class="orders-modal-section__eyebrow">Устройство</div>
+            <h4 class="orders-modal-section__title">Что именно нужно проверить</h4>
+        </div>
+        <div id="div_id_printer_name" class="form-group">
+            <i class="fa fa-print"></i>
+            <label for="{{ form.printer_name.id_for_label }}" class="label-bold">{{ form.printer_name.label }}</label>
+            {% render_field form.printer_name class="form-control" %}
+            <div class="invalid-feedback">
+                Пожалуйста, введите имя принтера.
+            </div>
+            <small id="hint_printer_name" class="form-text text-muted">
+                {{ form.printer_name.help_text }}
+            </small>
+        </div>
+    </div>
+{% endblock order_extra_fields %}
+
+{% block order_field_description %}
+    <div class="row mt-2">
+        <div class="col text-end">
+            <button
+                id="button_description"
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseDescription"
+                aria-expanded="false"
+                aria-controls="collapseDescription">
+                Добавить комментарий
+            </button>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapseDescription">
+        {% include 'orders/include/fields/description.html' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+﻿/* ============================= */
+/*         MEDIA QUERIES         */
+/* ============================= */
+@media screen and (max-width: 991px) {
+  .orders-topbar__inner, .orders-home__hero, .help-page__hero, .orders-page-shell__hero, .orders-footer__grid { grid-template-columns: 1fr; }
+  .orders-home__section-header { align-items: start; flex-direction: column; }
+  .orders-home__section-note { text-align: left; }
+  .help-page__grid { grid-template-columns: 1fr; }
+  .orders-table-card__header, .orders-footer__bottom { align-items: start; flex-direction: column; }
+  .orders-table-card__note { max-width: none; text-align: left; }
+  .orders-modal-dialog--transport .orders-modal-body { max-height: calc(100vh - 10.5rem); }
+}
+@media screen and (max-width: 767px) {
+  .main { min-height: calc(100vh - 11rem); }
+  .orders-topbar { padding-top: .8rem; }
+  .orders-topbar__inner { padding: .85rem; }
+  .orders-topbar__nav { margin: .85rem 0 0; gap: .35rem; }
+  .orders-topbar__link { justify-content: center; }
+  .orders-topbar__meta { margin-top: .8rem; justify-content: center; }
+  .orders-home__hero-content, .orders-home__hero-panel, .help-page__hero-card, .help-page__panel, .orders-page-shell__hero > :first-child, .orders-page-shell__hero-note, .orders-table-card, .orders-footer__shell { padding: 1.15rem; }
+  .orders-home__title, .help-page__title, .orders-page-shell__title { font-size: 1.85rem; }
+  .orders-home__hero-actions { flex-direction: column; }
+  .orders-home__hero-btn { width: 100%; justify-content: center; }
+  .orders-category-card { align-items: start; flex-direction: column; }
+  .orders-category-card__icon-wrap { width: 100%; }
+  .orders-footer__link { width: 100%; justify-content: center; }
+  .orders-detail-grid { grid-template-columns: 1fr; }
+  .orders-modal-body { padding: 1rem; }
+  .orders-modal-section { padding: .9rem .9rem .6rem; }
+  .orders-modal-footer { justify-content: stretch; }
+  .orders-modal-footer button { width: 100%; min-width: 0; }
+}
+@media print { h1, footer, #sidebar, #footer { display: none; } }

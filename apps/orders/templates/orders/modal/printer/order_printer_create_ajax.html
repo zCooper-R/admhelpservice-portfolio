@@ -1,0 +1,11 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+{% load order_tags %}
+{% load widget_tweaks %}
+
+{% block form_id %}printer{% endblock %}
+
+{% block modal_title %}Принтер|МФУ|Сканер{% endblock %}
+
+{% block modal_body_content %}
+    {% include 'orders/modal/printer/order_printer_fields.html' %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+{% load order_tags %}
+{% load widget_tweaks %}
+
+{% block form_id %}account{% endblock %}
+
+{% block modal_title %}Учётная запись{% endblock %}
+
+{% block modal_body_content %}
+    {% include 'orders/modal/account/order_account_fields.html' %}
+{% endblock %}

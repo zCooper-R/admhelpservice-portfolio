@@ -1,0 +1,18 @@
+{% load static %}
+<div
+    class="order-thread__lazy-pane"
+    data-order-discussion-lazy-pane
+    data-order-id="{{ order.id }}"
+    data-thread-fragment-url="{% url 'order_communication:thread_fragment' order.id %}"
+    data-thread-loaded="false"
+    data-thread-loading="false"
+>
+    <div class="order-thread__lazy-placeholder" data-thread-placeholder>
+        <div class="order-thread__lazy-title">Обсуждение пока не загружено</div>
+        <div class="order-thread__lazy-text">Откройте вкладку, чтобы показать переписку и служебные заметки.</div>
+    </div>
+    <div class="order-thread__lazy-loading" data-thread-loading-state hidden>
+        <div class="spinner-border spinner-border-sm text-info" role="status" aria-hidden="true"></div>
+        <span>Загружаем обсуждение...</span>
+    </div>
+</div>

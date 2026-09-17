@@ -1,0 +1,16 @@
+<div class="order-thread__timeline" data-order-thread-timeline>
+    {% if messages %}
+        {% for message in messages %}
+            {% if first_unread_message_id and message.id == first_unread_message_id %}
+                <div class="order-thread__unread-separator" data-order-thread-unread-separator>
+                    <span class="order-thread__unread-separator-line" aria-hidden="true"></span>
+                    <span class="order-thread__unread-separator-label">Новые сообщения</span>
+                    <span class="order-thread__unread-separator-line" aria-hidden="true"></span>
+                </div>
+            {% endif %}
+            {% include "order_communication/_message.html" with message=message %}
+        {% endfor %}
+    {% else %}
+        {% include "order_communication/_empty_state.html" %}
+    {% endif %}
+</div>

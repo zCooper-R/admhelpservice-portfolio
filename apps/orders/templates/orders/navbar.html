@@ -1,0 +1,102 @@
+{% url 'index' as index %}
+{% url 'help' as help %}
+{% url 'orders:orders_list' as orders_list %}
+{% url 'orders:tasks_list' as tasks_list %}
+{% url 'core:backup_status' as backup_status %}
+<nav class="navbar navbar-expand-lg navbar-dark container orders-topbar">
+    <div class="container-fluid orders-topbar__inner">
+        <a class="navbar-brand orders-topbar__brand" href="{{ index }}">
+            <span class="orders-topbar__brand-mark"><i class="bi bi-grid-1x2-fill"></i></span>
+            <span class="orders-topbar__brand-copy">
+                <span class="orders-topbar__brand-name">{{ SITE_NAME }}</span>
+                <span class="orders-topbar__brand-subtitle">Единая точка внутренних обращений</span>
+            </span>
+        </a>
+        {% if request.user.is_authenticated %}
+            <button class="navbar-toggler orders-topbar__toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Открыть навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="nav navbar-nav orders-topbar__nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link orders-topbar__link {% if request.path == orders_list %}active{% endif %}"
+                           aria-current="page"
+                           href="{{ orders_list }}">
+                            <i class="bi bi-inbox"></i>
+                            <span>Мои заявки</span>
+                        </a>
+                    </li>
+                    {% if orders_can_access_tasks %}
+                        <li class="nav-item">
+                            <a class="nav-link orders-topbar__link {% if request.path == tasks_list %}active{% endif %}"
+                               aria-current="page"
+                               href="{{ tasks_list }}">
+                                <i class="bi bi-list-check"></i>
+                                <span>Задачи</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link orders-topbar__link {% if request.path == '/help/' %}active{% endif %}"
+                           aria-current="page"
+                           href="{{ help }}">
+                            <i class="bi bi-question-circle"></i>
+                            <span>Помощь</span>
+                        </a>
+                    </li>
+                    {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link orders-topbar__link" href="{% url 'admin:index' %}">
+                                <i class="bi bi-shield-lock"></i>
+                                <span>Админка</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_staff or user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link orders-topbar__link {% if request.path == backup_status %}active{% endif %}"
+                               href="{{ backup_status }}">
+                                <i class="bi bi-database-check"></i>
+                                <span>Бэкапы</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <div class="orders-topbar__meta">
+                    <div
+                        class="dropdown orders-topbar__notifications"
+                        data-notification-center
+                        data-summary-url="{% url 'notifications:summary' %}"
+                        data-panel-url="{% url 'notifications:panel' %}"
+                        data-list-url="{% url 'notifications:list' %}"
+                    >
+                        <button
+                            class="orders-topbar__icon-button dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside"
+                            aria-expanded="false"
+                            aria-label="Уведомления"
+                        >
+                            <span
+                                class="orders-topbar__notification-badge {% if not notifications_unread_count %}is-hidden{% endif %}"
+                                data-notification-badge
+                            >
+                                {{ notifications_unread_count_display|default:"0" }}
+                            </span>
+                            <i class="far fa-bell"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end orders-topbar__dropdown">
+                            <div class="orders-topbar__dropdown-loading">Загружаем уведомления...</div>
+                        </div>
+                    </div>
+                    <div class="orders-topbar__meta-badge">
+                        <i class="bi bi-person-circle"></i>
+                        <span>{{ request.user.get_last_name_with_initials }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+{% block extra_js %}{% endblock extra_js %}

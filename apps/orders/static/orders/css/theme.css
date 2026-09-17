@@ -1,0 +1,52 @@
+/* theme.css — переменные тем */
+:root {
+  --bg-color: #101721;
+  --text-color: #f1f1f1;
+  --table-bg: #141c27;
+  --table-border: #273244;
+  --btn-color: #0d6efd;
+  --status-bg: #343a40;
+  --status-text: #ffffff;
+  --color-accent: #007ba5;
+  --color-shadow: rgba(183, 183, 183, 0.71);
+  --color-text-gray: #8a8a8a;
+  --color-text-light: #cccccc;
+  --color-danger: #a30d00;
+  --color-success-bg: #d1e7dd;
+  --color-success-border: #9cc4ba;
+  --color-footer-bg: #f0f0f0;
+  --color-footer-border: #cccccc;
+  --color-scroll-bg: rgba(0, 0, 0, 0.15);
+  --color-scroll-hover: #999999;
+  --color-loader-red: #f44336;
+  --color-loader-purple: #673ab7;
+  --font-main: 'Inter', 'Segoe UI', sans-serif;
+
+}
+
+
+[data-theme="light"] {
+  --bg-color: #fdfdfd;                 /* фон страницы */
+  --text-color: #212529;               /* основной текст */
+  --table-bg: #ffffff;                 /* фон ячеек */
+  --table-border: #ced4da;             /* границы таблицы */
+  --btn-color: #0d6efd;                /* кнопки */
+  --status-bg: #e2e3e5;                /* фон статусов */
+  --status-text: #000;                 /* текст статуса */
+
+  --color-accent: #007ba5;
+  --color-shadow: rgba(100, 100, 100, 0.3);
+  --color-text-gray: #6c757d;
+  --color-text-light: #495057;
+
+  --color-success-bg: #d1e7dd;
+  --color-success-border: #badbcc;
+  --color-footer-bg: #f8f9fa;
+  --color-footer-border: #dee2e6;
+
+  --color-scroll-bg: rgba(0, 0, 0, 0.08);
+  --color-scroll-hover: rgba(0, 0, 0, 0.2);
+
+  --color-loader-red: #e53935;
+  --color-loader-purple: #5e35b1;
+}

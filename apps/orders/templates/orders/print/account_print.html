@@ -1,0 +1,23 @@
+{% extends "orders/print/base_print.html" %}
+{% load static %}
+{% block content %}
+<div class="print-order">
+    <h1>Заявка №{{ object.content_object.id }} — {{ object }}</h1>
+    <ul>
+        <li><strong>Подразделение:</strong> {{ object.content_object.departament }}</li>
+        <li><strong>Инициатор:</strong> {{ object.content_object.client }} | тел.: {{ object.content_object.phone }}</li>
+        <li><strong>Адрес:</strong> {{ object.content_object.address }}, каб. {{ object.content_object.cabinet }}</li>
+        <li><strong>Описание:</strong> <div class="description">{{ object.content_object.description }}</div></li>
+        {% if object.content_object.equipment %}
+            <li><strong>Оборудование:</strong> {{ object.content_object.equipment }}</li>
+        {% endif %}
+        <!-- Добавь здесь остальные поля аналогично -->
+    </ul>
+</div>
+
+<script>
+    window.onload = function() {
+        window.print();
+    };
+</script>
+{% endblock %}

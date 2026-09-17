@@ -1,0 +1,18 @@
+<span class="popover-help-wrap">
+    <i
+        class="fa fa-info-circle js-toggle-help"
+        role="button"
+        tabindex="0"
+        title="Нажмите, чтобы посмотреть описание подкатегорий"
+        aria-label="Показать описание подкатегорий"
+    ></i>
+    <div class="popover_help js-popover-help">
+        <ol class="list-group">
+            {% for item in descriptions %}
+                <li class="list-group-item border-secondary">
+                    <b>{{ item.label }}</b> - {{ item.description }}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</span>

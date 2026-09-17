@@ -1,0 +1,126 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+{% load widget_tweaks %}
+
+{% block modal_dialog_class %}orders-modal-dialog--transport{% endblock modal_dialog_class %}
+{% block form_id %}transport-update{% endblock form_id %}
+{% block modal_title %}#{{ object.id }} {{ object }}{% endblock modal_title %}
+
+{% block modal_body_content %}
+    {% if form.non_field_errors %}
+        <div class="orders-modal-alert orders-modal-alert--error mb-3">
+            {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="orders-modal-section">
+        <div class="orders-modal-section__header">
+            <div class="orders-modal-section__eyebrow">Исходные данные</div>
+            <h4 class="orders-modal-section__title">Что указал инициатор</h4>
+        </div>
+
+        <div class="row mt-0">
+            <div id="div_id_transport_client" class="form-group col-md-5 orders-modal-field">
+                <label for="{{ form.client.id_for_label }}">{{ form.client.label }}</label>
+                {% render_field form.client class="form-control orders-modal-input" readonly="" %}
+            </div>
+            <div id="div_id_transport_departament" class="form-group col-md-7 orders-modal-field">
+                <label for="{{ form.departament.id_for_label }}">{{ form.departament.label }}</label>
+                {% render_field form.departament class="form-control orders-modal-input" readonly="" %}
+            </div>
+        </div>
+
+        <div class="row mt-0">
+            <div class="col-md-7">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                    {% render_field form.phone class="form-control orders-modal-input" readonly="" %}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.transport_city.id_for_label }}">{{ form.transport_city.label }}</label>
+                    {% render_field form.transport_city class="form-control orders-modal-input" readonly="" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="orders-modal-field">
+            {% include 'orders/include/transport_route.html' with route=form.address.value eyebrow='Маршрут поездки' title='Последовательность адресов' card_class='orders-transport-route-card--editor' %}
+        </div>
+
+        <div class="form-group orders-modal-field d-none">
+            <label for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+            {% render_field form.address class="form-control orders-modal-input" readonly="" %}
+        </div>
+
+        <div class="row mt-0">
+            <div class="col-md-7">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.transport_arrival_datetime.id_for_label }}">{{ form.transport_arrival_datetime.label }}</label>
+                    {% render_field form.transport_arrival_datetime class="form-control orders-modal-input" readonly="" %}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.transport_passengers.id_for_label }}">{{ form.transport_passengers.label }}</label>
+                    {% render_field form.transport_passengers class="form-control orders-modal-input" readonly="" %}
+                </div>
+            </div>
+        </div>
+
+        {% if object.comeback %}
+            <div class="form-group orders-modal-field">
+                <label for="{{ form.comeback_datetime.id_for_label }}">{{ form.comeback_datetime.label }}</label>
+                {% render_field form.comeback_datetime class="form-control orders-modal-input" readonly="" %}
+            </div>
+        {% endif %}
+
+        {% if form.description.value %}
+            <div class="form-group orders-modal-field">
+                <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                {% render_field form.description class="form-control orders-modal-input" readonly="" %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="orders-modal-section orders-modal-section--form">
+        <div class="orders-modal-section__header">
+            <div class="orders-modal-section__eyebrow">Исполнение</div>
+            <h4 class="orders-modal-section__title">Данные для обработки заявки</h4>
+        </div>
+
+        <div class="row my-0">
+            <div class="col-md-6">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                    {% render_field form.status class="form-select orders-modal-input" %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.driver.id_for_label }}">{{ form.driver.label }}</label>
+                    {% render_field form.driver class="form-select orders-modal-input" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-0">
+            <div class="col-md-6">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.transport_departure_datetime.id_for_label }}">{{ form.transport_departure_datetime.label }}</label>
+                    {% render_field form.transport_departure_datetime class="form-control orders-modal-input" %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group orders-modal-field">
+                    <label for="{{ form.transport_departure_location.id_for_label }}">{{ form.transport_departure_location.label }}</label>
+                    {% render_field form.transport_departure_location class="form-control orders-modal-input" %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock modal_body_content %}
+
+{% block modal_footer %}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+{% endblock modal_footer %}

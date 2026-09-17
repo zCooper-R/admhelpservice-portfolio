@@ -1,0 +1,11 @@
+{% extends 'orders/base.html' %}
+
+{% block content %}
+<div class="max-w-lg mx-auto mt-20 w-50">
+    <form method="POST">{% csrf_token %}
+        {{ form }}
+        <input class="button btn bg-primary mt-5 " type="submit" name='login' value="Войти">
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,84 @@
+{% load widget_tweaks %}
+
+<div class="orders-modal-section">
+    <div class="orders-modal-section__header">
+        <div class="orders-modal-section__eyebrow">Сценарий</div>
+        <h4 class="orders-modal-section__title">Выберите подкатегорию</h4>
+    </div>
+    {% include 'orders/include/fields/category.html' %}
+</div>
+
+<div class="orders-modal-section">
+    <div class="orders-modal-section__header">
+        <div class="orders-modal-section__eyebrow">Контакты</div>
+        <h4 class="orders-modal-section__title">Кто создаёт заявку</h4>
+    </div>
+    {% include 'orders/include/form_create_user_info.html' %}
+</div>
+
+<div class="orders-modal-section">
+    <div class="orders-modal-section__header">
+        <div class="orders-modal-section__eyebrow">Когда</div>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.start_vks_datetime.id_for_label }}" class="label-bold">{{ form.start_vks_datetime.label }}</label>
+        {% render_field form.start_vks_datetime class="form-control" %}
+    </div>
+</div>
+
+<div class="orders-modal-section collapse d-none" id="collapseVksOrganization">
+    <div class="orders-modal-section__header">
+        <div class="orders-modal-section__eyebrow">Трансляция</div>
+        <h4 class="orders-modal-section__title">Создание встречи в Yandex Telemost</h4>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.name_vks.id_for_label }}" class="label-bold">{{ form.name_vks.label }}</label>
+        {% render_field form.name_vks class="form-control" %}
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="{{ form.duration_vks_time.id_for_label }}" class="label-bold">{{ form.duration_vks_time.label }}</label>
+                {% render_field form.duration_vks_time class="form-control" %}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.recipient_email.id_for_label }}" class="label-bold">{{ form.recipient_email.label }}</label>
+        {% render_field form.recipient_email class="form-control" %}
+        <small class="form-text text-muted">{{ form.recipient_email.help_text }}</small>
+    </div>
+</div>
+
+<div class="orders-modal-section collapse d-none" id="collapseVksConnect">
+    <div class="orders-modal-section__header">
+        <div class="orders-modal-section__eyebrow">Сопровождение</div>
+        <h4 class="orders-modal-section__title">Подготовка к ВКС и презентации</h4>
+    </div>
+    <div class="form-group" id="vksLinkFieldGroup">
+        <label for="{{ form.link_vks.id_for_label }}" class="label-bold">{{ form.link_vks.label }}</label>
+        {% render_field form.link_vks class="form-control" %}
+        <small class="form-text text-muted">{{ form.link_vks.help_text }}</small>
+    </div>
+    <div class="form-group" id="vksEquipmentGroup">
+        <label class="label-bold">{{ form.equipment.label }}</label>
+        <div class="orders-vks-equipment-list">
+            {% for item in form.equipment %}
+                <label class="orders-vks-equipment-item">
+                    {{ item.tag }}
+                    <span class="orders-vks-equipment-item__copy">{{ item.choice_label }}</span>
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="orders-modal-section">
+    <div class="orders-modal-section__header">
+        <div class="orders-modal-section__eyebrow">Дополнительно</div>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.description.id_for_label }}" class="label-bold">{{ form.description.label }}</label>
+        {% render_field form.description class="form-control" %}
+    </div>
+</div>

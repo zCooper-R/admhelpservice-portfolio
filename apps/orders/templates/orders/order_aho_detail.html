@@ -1,0 +1,16 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>Детали заявки Хозяйственный отдел</h3>
+    <div class="row">
+        {% if object %}
+            {{ object.pk }}<br>
+            {{ object.owner }}<br>
+            {{ object.get_aho_category_display }}<br>
+            {{ object.client }}<br>
+            {{ object.description }}<br>
+            {{ object.created_at }}<br>
+        {% endif %}
+    </div>
+{% endblock content %}

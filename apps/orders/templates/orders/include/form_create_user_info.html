@@ -1,0 +1,84 @@
+{% load widget_tweaks %}
+<div class="user-info">
+    <div id="div_id_departament" class="form-group">
+        <i class="fa fa-building"></i>
+        <label for="{{ form.departament.id_for_label }}" class="label-bold">
+            {{ form.departament.label }}
+        </label>
+        {% render_field form.departament class="form-control" %}
+        <div class="invalid-feedback">
+            Пожалуйста, укажите подразделение.
+        </div>
+    </div>
+
+    {% if form.post %}
+        <div class="row">
+            <div id="div_id_post" class="form-group">
+                <i class="fa fa-briefcase"></i>
+                <label for="{{ form.post.id_for_label }}" class="label-bold">
+                    {{ form.post.label }}
+                </label>
+                {% render_field form.post class="form-control" %}
+                <div class="invalid-feedback">
+                    Пожалуйста, укажите должность.
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-7">
+            <div id="div_id_client" class="form-group">
+                <i class="fa fa-user"></i>
+                <label for="{{ form.client.id_for_label }}" class="label-bold">
+                    {{ form.client.label }}
+                </label>
+                <small id="hint_client" class="form-text text-muted">{{ form.client.help_text }}</small>
+                {% render_field form.client class="form-control" %}
+                <div class="invalid-feedback">
+                    Пожалуйста, введите ФИО.
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div id="div_id_phone" class="form-group">
+                <i class="fa fa-phone"></i>
+                <label for="{{ form.phone.id_for_label }}" class="label-bold">
+                    {{ form.phone.label }}
+                </label>
+                {% render_field form.phone class="form-control" %}
+                <div class="invalid-feedback">
+                    Пожалуйста, укажите контактный номер телефона.
+                </div>
+                <small id="hint_phone" class="form-text text-muted">{{ form.phone.help_text }}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div id="div_id_address" class="form-group">
+                <i class="fa fa-city"></i>
+                <label for="{{ form.address.id_for_label }}" class="label-bold">
+                    {{ form.address.label }}
+                </label>
+                {% render_field form.address class="form-control" %}
+                <div class="invalid-feedback">
+                    Пожалуйста, укажите местоположение.
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div id="div_id_cabinet" class="form-group">
+                <i class="fa fa-address-card"></i>
+                <label for="{{ form.cabinet.id_for_label }}" class="label-bold">
+                    {{ form.cabinet.label }}
+                </label>
+                {% render_field form.cabinet class="form-control" %}
+                <div class="invalid-feedback">
+                    Пожалуйста, укажите кабинет.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

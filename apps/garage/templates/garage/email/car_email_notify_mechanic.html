@@ -1,0 +1,8 @@
+{% extends 'garage/email/_mail.html' %}
+
+{% block content %}
+    <p><b>#{{ object.id }} {{ object }} </b></p>
+    <p>Пробег: {{ object.mileage }}</p>
+    <p>Водитель: {{ object.driver.name }} | {{ object.driver.phone }}</p>
+
+{% endblock content %}

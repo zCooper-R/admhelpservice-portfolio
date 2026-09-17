@@ -1,0 +1,42 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+
+{% block modal_form_open %}{% endblock modal_form_open %}
+{% block modal_form_close %}{% endblock modal_form_close %}
+{% block modal_dialog_class %}modal-sm orders-modal-dialog--confirm{% endblock modal_dialog_class %}
+{% block modal_title %}{{ modal_title }}{% endblock modal_title %}
+
+{% block modal_body_content %}
+    <div class="orders-modal-section">
+        <div class="orders-modal-section__header">
+            <div class="orders-modal-section__eyebrow">{{ modal_kicker|default:"Подтверждение" }}</div>
+            <h4 class="orders-modal-section__title">{{ modal_heading|default:"Подтвердите действие" }}</h4>
+        </div>
+        <div class="orders-detail-grid">
+            <div class="orders-detail-card orders-detail-card--wide">
+                <div class="orders-detail-card__value orders-detail-card__value--text">
+                    <p>{{ modal_message }}</p>
+                    {% if modal_hint %}
+                        <p class="mb-0 text-body-secondary">{{ modal_hint }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock modal_body_content %}
+
+{% block modal_footer %}
+    {% if back_url %}
+        <button type="button" class="btn btn-sm btn-outline-secondary openOrderModalBtn d-inline-flex align-items-center justify-content-center" data-url="{{ back_url }}">Назад</button>
+    {% endif %}
+    <button
+        type="button"
+        class="btn btn-sm {{ confirm_button_class|default:'btn-primary' }} notifyOrderActionBtn d-inline-flex align-items-center justify-content-center gap-2"
+        data-post-url="{{ confirm_post_url }}"
+        data-success-message="{{ confirm_success_message|default:'Действие выполнено.' }}"
+    >
+        {% if confirm_button_icon %}
+            <i class="{{ confirm_button_icon }}"></i>
+        {% endif %}
+        <span>{{ confirm_button_text|default:"Подтвердить" }}</span>
+    </button>
+{% endblock modal_footer %}

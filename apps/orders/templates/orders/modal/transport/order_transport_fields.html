@@ -1,0 +1,170 @@
+{% load widget_tweaks %}
+{% load order_tags %}
+
+<div class="orders-transport-form">
+    <div class="orders-modal-section">
+        <div class="orders-modal-section__header">
+            <div class="orders-modal-section__eyebrow">Инициатор</div>
+            <h4 class="orders-modal-section__title">Контактные данные</h4>
+        </div>
+
+        <div id="div_id_departament" class="form-group orders-modal-field">
+            <i class="fa fa-building"></i>
+            <label for="{{ form.departament.id_for_label }}" class="label-bold">{{ form.departament.label }}</label>
+            {% render_field form.departament class="form-control orders-modal-input" data-bs-toggle="tooltip" data-bs-placement="left" title="Подразделение инициатора" %}
+            <div class="invalid-feedback">Пожалуйста, укажите подразделение.</div>
+        </div>
+
+        <div class="row g-3 form-group mt-0">
+            <div class="col-md-7">
+                <div id="div_id_client" class="orders-modal-field">
+                    <i class="fa fa-user"></i>
+                    <label for="{{ form.client.id_for_label }}" class="label-bold">{{ form.client.label }}</label>
+                    {% render_field form.client class="form-control orders-modal-input" %}
+                    <div class="invalid-feedback">Пожалуйста, введите ФИО инициатора.</div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div id="div_id_phone" class="orders-modal-field">
+                    <i class="fa fa-phone"></i>
+                    <label for="{{ form.phone.id_for_label }}" class="label-bold">{{ form.phone.label }}</label>
+                    {% render_field form.phone class="form-control orders-modal-input" %}
+                    <div class="invalid-feedback">Пожалуйста, укажите телефон для связи.</div>
+                    <small id="hint_phone" class="form-text text-muted">{{ form.phone.help_text }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="orders-modal-section">
+        <div class="orders-modal-section__header">
+            <div class="orders-modal-section__eyebrow">Маршрут</div>
+            <h4 class="orders-modal-section__title">Параметры поездки</h4>
+        </div>
+
+        <div id="div_id_transport_city" class="form-group orders-modal-field">
+            <i class="fa fa-city"></i>
+            <label for="{{ form.transport_city.id_for_label }}" class="label-bold">{{ form.transport_city.label }}</label>
+            {% render_field form.transport_city class="form-control orders-modal-input" data-bs-trigger="focus" data-bs-toggle="popover" data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-content="Город или район, по которому будет осуществляться поездка." %}
+            <div class="invalid-feedback">Пожалуйста, укажите город или район поездки.</div>
+        </div>
+
+        <div id="div_id_address" class="form-group orders-modal-field">
+            <div class="orders-transport-address-head">
+                <div class="orders-transport-address-title">
+                    <i class="fa fa-route"></i>
+                    <label for="{{ form.address.id_for_label }}" class="label-bold">Маршрут</label>
+                </div>
+                <button id="add_address_button" type="button" class="btn btn-primary btn-sm orders-transport-add-address">Добавить точку</button>
+            </div>
+
+            <div class="orders-transport-route-card orders-transport-route-card--editor">
+                <div class="orders-transport-route-card__header">
+                    <div>
+                        <div class="orders-transport-route-card__eyebrow">Путь поездки</div>
+                        <div class="orders-transport-route-card__title">Последовательность адресов</div>
+                    </div>
+                    <div id="transport_route_count" class="orders-transport-route-card__badge">1 точка</div>
+                </div>
+                <div id="transport_route_preview" class="orders-transport-route-preview">
+                    Укажите первую точку маршрута.
+                </div>
+            </div>
+
+            <div
+                id="transport_route_list"
+                class="orders-transport-route-editor"
+                data-placeholder-scope="transport-route"
+            >
+                <div class="orders-transport-address-row" data-route-stop>
+                    <div class="orders-transport-address-meta">
+                        <div class="orders-transport-address-number">1</div>
+                        <div class="orders-transport-address-role">Пункт маршрута</div>
+                    </div>
+
+                    <div class="orders-transport-address-input-wrap">
+                        <input
+                            type="text"
+                            name="address"
+                            maxlength="150"
+                            class="form-control orders-modal-input"
+                            required
+                            placeholder="Комсомольский бульвар, 9"
+                            id="id_address"
+                            autocomplete="off"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="focus"
+                            data-bs-custom-class="custom-popover"
+                            data-bs-placement="left"
+                            title="Маршрут поездки"
+                            data-bs-content="Добавляйте адреса по порядку: сверху первая точка маршрута, ниже последующие остановки."
+                        >
+                        <div class="invalid-feedback">Пожалуйста, укажите точку маршрута.</div>
+                    </div>
+
+                    <div class="orders-transport-address-actions">
+                        <button type="button" class="btn btn-outline-secondary orders-transport-move-up" aria-label="Поднять точку" title="Поднять точку">
+                            <i class="fa fa-arrow-up"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary orders-transport-move-down" aria-label="Опустить точку" title="Опустить точку">
+                            <i class="fa fa-arrow-down"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-danger remove-address-btn" aria-label="Удалить точку" title="Удалить точку">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 form-group mt-0">
+            <div id="div_id_transport_arrival_datetime" class="col-md-7">
+                <i class="fa fa-calendar-alt"></i>
+                <label for="{{ form.transport_arrival_datetime.id_for_label }}" class="label-bold">{{ form.transport_arrival_datetime.label }}</label>
+                {% render_field form.transport_arrival_datetime class="form-control orders-modal-input" min="2023-01-01T00:00" max="2026-12-31T00:00" data-bs-custom-class="custom-popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="left" data-bs-content="Установите дату и время планируемого прибытия на место." %}
+                <div class="invalid-feedback">Пожалуйста, введите дату и время прибытия на место.</div>
+            </div>
+            <div id="div_id_transport_passengers" class="col-md-5">
+                <i class="fa fa-users"></i>
+                <label for="{{ form.transport_passengers.id_for_label }}" class="label-bold">{{ form.transport_passengers.label }}</label>
+                {% render_field form.transport_passengers class="form-control orders-modal-input" %}
+                <div class="invalid-feedback">Пожалуйста, укажите, сколько поедет человек.</div>
+            </div>
+        </div>
+
+        <div id="div_id_comeback" class="row g-3 align-items-start form-group mt-0">
+            <div class="col-md-7">
+                <div
+                    class="w-1 form-check form-switch orders-transport-switch"
+                    data-bs-toggle="popover"
+                    data-bs-trigger="hover"
+                    data-bs-placement="left"
+                    data-bs-content="Укажите примерное время обратной поездки, если транспорт нужен и на возвращение."
+                    data-bs-custom-class="custom-popover"
+                >
+                    <i class="fa fa-reply"></i>
+                    <label class="text-center" for="{{ form.comeback.id_for_label }}">{{ form.comeback.label }}</label>
+                    {% render_field form.comeback class="form-check-input" %}
+                    <small id="hint_id_comeback" class="form-text text-muted">{{ form.comeback.help_text }}</small>
+                </div>
+            </div>
+            <div class="col-md-5 text-md-end">
+                <button id="button_description" class="btn btn-outline-secondary btn-sm orders-transport-description-btn" type="button" data-bs-toggle="collapse" data-bs-target="#div_id_description" aria-expanded="false" aria-controls="div_id_description">
+                    Добавить комментарий
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse mt-3" id="div_id_description">
+        <div class="orders-modal-section orders-modal-section--form">
+            <div class="orders-modal-section__header">
+                <div class="orders-modal-section__eyebrow">Комментарий</div>
+                <h4 class="orders-modal-section__title">Дополнительная информация</h4>
+            </div>
+            <i class="fa fa-comment-dots"></i>
+            <label for="{{ form.description.id_for_label }}" class="label-bold">{{ form.description.label }}</label>
+            {% render_field form.description class="form-control orders-modal-input" placeholder="Например: нужен объезд нескольких адресов, есть груз или важно успеть к определённому времени." %}
+        </div>
+    </div>
+</div>

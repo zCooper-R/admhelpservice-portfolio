@@ -1,0 +1,41 @@
+{% load order_tags %}
+
+{% with route_points=route|split_transport_route %}
+    {% if route_points %}
+        <div class="orders-transport-route-card{% if card_class %} {{ card_class }}{% endif %}">
+            <div class="orders-transport-route-card__header">
+                <div>
+                    {% if eyebrow %}
+                        <div class="orders-transport-route-card__eyebrow">{{ eyebrow }}</div>
+                    {% endif %}
+                    <div class="orders-transport-route-card__title">{{ title|default:"Маршрут" }}</div>
+                </div>
+                <div class="orders-transport-route-card__badge">{{ route_points|length }} точек</div>
+            </div>
+
+            <div class="orders-transport-route-list">
+                {% for point in route_points %}
+                    <div class="orders-transport-route-stop">
+                        <div class="orders-transport-route-stop__marker">
+                            <span class="orders-transport-route-stop__number">{{ forloop.counter }}</span>
+                        </div>
+                        <div class="orders-transport-route-stop__content">
+                            <div class="orders-transport-route-stop__role">
+                                {% if route_points|length == 1 %}
+                                    Пункт маршрута
+                                {% elif forloop.first %}
+                                    Старт
+                                {% elif forloop.last %}
+                                    Финальная точка
+                                {% else %}
+                                    Промежуточная точка
+                                {% endif %}
+                            </div>
+                            <div class="orders-transport-route-stop__address">{{ point }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}

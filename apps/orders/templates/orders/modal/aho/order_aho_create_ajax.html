@@ -1,0 +1,11 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+{% load order_tags %}
+{% load widget_tweaks %}
+
+{% block form_id %}aho{% endblock %}
+
+{% block modal_title %}Хозяйственный отдел{% endblock %}
+
+{% block modal_body_content %}
+    {% include 'orders/modal/aho/order_aho_fields.html' %}
+{% endblock %}

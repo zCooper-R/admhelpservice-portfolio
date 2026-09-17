@@ -1,0 +1,32 @@
+{% extends 'orders/email/_mail.html' %}
+
+{% block content %}
+    <p><b>ВКС #{{ object.id }}</b></p>
+    <p>Категория: {{ object.get_category_display }}</p>
+    {% if object.support_specialist %}
+        <p>Исполнитель: {{ object.support_specialist.user.get_last_name_with_initials }}</p>
+    {% endif %}
+    <p>Инициатор: {{ object.client }}</p>
+    <p>Адрес: {{ object.address }}, кабинет №{{ object.cabinet }}. тел. {{ object.phone }}</p>
+    {% if object.name_vks %}
+        <p>Название трансляции: {{ object.name_vks }}</p>
+    {% endif %}
+    {% if object.start_vks_datetime %}
+        <p>Дата и время: {{ object.start_vks_datetime }}</p>
+    {% endif %}
+    {% if object.duration_vks_time %}
+        <p>Длительность: {{ object.get_duration_display }}</p>
+    {% endif %}
+    {% if object.recipient_email %}
+        <p>Куда отправить ссылку: {{ object.recipient_email }}</p>
+    {% endif %}
+    {% with equipment_list=object.get_equipment_display_list %}
+        {% if equipment_list %}
+            <p>Оборудование: {{ equipment_list|join:", " }}</p>
+        {% endif %}
+    {% endwith %}
+    {% if object.description %}
+        Комментарий:<br>
+        <pre>{{ object.description }}</pre>
+    {% endif %}
+{% endblock content %}

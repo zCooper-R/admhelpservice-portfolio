@@ -1,0 +1,26 @@
+{% extends 'orders/email/_mail.html' %}
+
+{% block content %}
+     <p><b>Служебный транспорт #{{ object.id }}</b></p>
+    <p>Подразделение: {{ object.departament }}</p>
+    <p>Инициатор: {{ object.client }} | тел. {{ object.phone }}</p>
+    <p>Город: {{ object.transport_city }}</p>
+    <p>Маршрут: {{ object.address }}</p>
+    <p>Время прибытия: {{ object.transport_arrival_datetime }}</p>
+    {% if object.comeback %}
+        <p>Время возвращения: {{ object.comeback_datetime }}</p>
+    {% endif %}
+    <p>Пассажиры: {{ object.transport_passengers }}</p>
+    {% if object.transport_departure_datetime %}
+        <p>Время отправления: {{ object.transport_departure_datetime }}</p>
+    {% endif %}
+    {% if object.transport_departure_location %}
+        <p>Место отправления: {{ object.transport_departure_location }}</p>
+    {% endif %}
+    {% if object.driver %}
+        <p>Водитель: {{ object.driver }} | тел. {{ object.driver.phone }}</p>
+    {% endif %}
+    {% if object.description %}
+        <p>Дополнительно: {{ object.description }}</p>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'orders/email/_mail.html' %}
+
+{% block content %}
+    <p><b>Заявка на обслуживание принтера. Демонстрационная организация</b></p>
+    <p>Категория: {{ object.get_category_display }}</p>
+    <p>Подразделение: {{ object.departament }}</p>
+    <p>Клиент: {{ object.client }}</p>
+    <p>Принтер: {{ object.printer_name }}</p>
+    {% if object.description %}
+        Комментарий:<br>
+        <pre>{{ object.description }}</pre>
+    {% endif %}
+    <p>Адрес: {{ object.address }}, кабинет №{{ object.cabinet }}. тел. {{ object.phone }}</p>
+{% endblock content %}

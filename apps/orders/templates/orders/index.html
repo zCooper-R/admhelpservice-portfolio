@@ -1,0 +1,227 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="orders-home">
+    <div class="orders-home__hero">
+        <div class="orders-home__hero-content">
+            <div class="orders-home__eyebrow">Help Service</div>
+            <h1 class="orders-home__title">Выберите категорию обращения</h1>
+            <p class="orders-home__subtitle">
+                Создавайте внутренние заявки в одном интерфейсе, быстро находите нужный тип обращения
+                и отслеживайте статус исполнения без лишних переходов между страницами.
+            </p>
+            <div class="orders-home__hero-actions">
+                <a href="{% url 'orders:orders_list' %}" class="btn btn-primary orders-home__hero-btn">
+                    <i class="bi bi-inbox"></i>
+                    <span>Открыть мои заявки</span>
+                </a>
+                <a href="{% url 'help' %}" class="btn btn-outline-light orders-home__hero-btn orders-home__hero-btn--secondary">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Как пользоваться сервисом</span>
+                </a>
+            </div>
+        </div>
+        <div class="orders-home__hero-panel">
+            <div class="orders-home__metric">
+                <span class="orders-home__metric-icon"><i class="bi bi-lightning-charge-fill"></i></span>
+                <div>
+                    <div class="orders-home__metric-title">Быстрый старт</div>
+                    <div class="orders-home__metric-text">Форма заявки открывается прямо из карточки категории.</div>
+                </div>
+            </div>
+            <div class="orders-home__metric">
+                <span class="orders-home__metric-icon"><i class="bi bi-shield-check"></i></span>
+                <div>
+                    <div class="orders-home__metric-title">Единый контур</div>
+                    <div class="orders-home__metric-text">Заявки, задачи и справка собраны в одном интерфейсе.</div>
+                </div>
+            </div>
+            <div class="orders-home__metric">
+                <span class="orders-home__metric-icon"><i class="bi bi-stars"></i></span>
+                <div>
+                    <div class="orders-home__metric-title">Прозрачный процесс</div>
+                    <div class="orders-home__metric-text">Пользователю проще ориентироваться в категориях и статусах обращения.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="orders-home__section-header">
+        <div>
+            <div class="orders-home__section-eyebrow">Категории</div>
+            <h2 class="orders-home__section-title">Доступные типы обращений</h2>
+        </div>
+        <p class="orders-home__section-note">Нажмите на карточку или иконку, чтобы сразу перейти к созданию заявки.</p>
+    </div>
+
+    <div class="row g-4 orders-home__grid">
+        {% if request.user.is_superuser or perms.orders.add_orderprinter %}
+            <div class="col-xl-4 col-md-6">
+                <div class="orders-category-card openOrderFormBtn" data-url="{% url 'orders:order_printer_create' %}" title="Принтер | МФУ | Сканер">
+                    <div class="orders-category-card__icon-wrap orders-category-card__icon-wrap--printer">
+                        <img src="{% static 'orders/img/printer.svg' %}"
+                             class="category-icon orders-category-card__icon orders-category-card__icon--printer"
+                             data-url="{% url 'orders:order_printer_create' %}"
+                             alt="Принтер"
+                             title="Принтер | МФУ | Сканер"
+                        />
+                    </div>
+                    <div class="orders-category-card__content">
+                        <div class="orders-category-card__badge">Печать и расходники</div>
+                        <div class="orders-category-card__title">Принтеры и МФУ</div>
+                        <div class="orders-category-card__text">Заправка, расходные материалы, ремонт и обслуживание техники печати.</div>
+                    </div>
+                    <span class="orders-category-card__arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if request.user.is_superuser or perms.orders.add_ordertransport %}
+            <div class="col-xl-4 col-md-6">
+                <div class="orders-category-card openOrderFormBtn" data-url="{% url 'orders:order_transport_create' %}" title="Служебный транспорт">
+                    <div class="orders-category-card__icon-wrap orders-category-card__icon-wrap--transport">
+                        <img src="{% static 'orders/img/transport.svg' %}"
+                             class="category-icon orders-category-card__icon orders-category-card__icon--transport"
+                             data-url="{% url 'orders:order_transport_create' %}"
+                             alt="Транспорт"
+                             title="Служебный транспорт"
+                        />
+                    </div>
+                    <div class="orders-category-card__content">
+                        <div class="orders-category-card__badge">Маршрут и поездка</div>
+                        <div class="orders-category-card__title">Служебный транспорт</div>
+                        <div class="orders-category-card__text">Маршруты, адреса, время прибытия, возврат и параметры поездки.</div>
+                    </div>
+                    <span class="orders-category-card__arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if request.user.is_superuser or perms.orders.add_orderpc %}
+            <div class="col-xl-4 col-md-6">
+                <div class="orders-category-card openOrderFormBtn" data-url="{% url 'orders:order_pc_create' %}" title="Персональный компьютер">
+                    <div class="orders-category-card__icon-wrap orders-category-card__icon-wrap--pc">
+                        <img src="{% static 'orders/img/computer.svg' %}"
+                             class="category-icon orders-category-card__icon orders-category-card__icon--pc order-pc-create"
+                             data-url="{% url 'orders:order_pc_create' %}"
+                             alt="ПК"
+                             title="Персональный компьютер"
+                        />
+                    </div>
+                    <div class="orders-category-card__content">
+                        <div class="orders-category-card__badge">Рабочее место</div>
+                        <div class="orders-category-card__title">Компьютеры</div>
+                        <div class="orders-category-card__text">Рабочие станции, периферия, программные и аппаратные проблемы.</div>
+                    </div>
+                    <span class="orders-category-card__arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if request.user.is_superuser or perms.orders.add_orderaho %}
+            <div class="col-xl-4 col-md-6">
+                <div class="orders-category-card openOrderFormBtn" data-url="{% url 'orders:order_aho_create' %}" title="Административно-хозяйственная деятельность">
+                    <div class="orders-category-card__icon-wrap orders-category-card__icon-wrap--aho">
+                        <img src="{% static 'orders/img/aho.svg' %}"
+                             class="category-icon orders-category-card__icon orders-category-card__icon--aho order-aho-create"
+                             data-url="{% url 'orders:order_aho_create' %}"
+                             alt="АХО"
+                             title="Административно-хозяйственная деятельность"
+                        />
+                    </div>
+                    <div class="orders-category-card__content">
+                        <div class="orders-category-card__badge">Офис и хозяйство</div>
+                        <div class="orders-category-card__title">АХО</div>
+                        <div class="orders-category-card__text">Вода, уборка, канцтовары, мелкий ремонт и хозяйственные задачи.</div>
+                    </div>
+                    <span class="orders-category-card__arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if request.user.is_superuser or perms.orders.add_orderaccount %}
+            <div class="col-xl-4 col-md-6">
+                <div class="orders-category-card openOrderFormBtn" data-url="{% url 'orders:order_account_create' %}" title="Учётная запись">
+                    <div class="orders-category-card__icon-wrap orders-category-card__icon-wrap--account">
+                        <img src="{% static 'orders/img/account.svg' %}"
+                             class="category-icon orders-category-card__icon orders-category-card__icon--account order-account-create"
+                             data-url="{% url 'orders:order_account_create' %}"
+                             alt="Учётная запись"
+                             title="Учётная запись"
+                        />
+                    </div>
+                    <div class="orders-category-card__content">
+                        <div class="orders-category-card__badge">Доступы и параметры</div>
+                        <div class="orders-category-card__title">Учётные записи</div>
+                        <div class="orders-category-card__text">Доменные и внутренние учётные записи, доступы и изменение параметров.</div>
+                    </div>
+                    <span class="orders-category-card__arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if request.user.is_superuser or perms.orders.add_ordervks %}
+            <div class="col-xl-4 col-md-6">
+                <div class="orders-category-card openOrderFormBtn" data-url="{% url 'orders:order_vks_create' %}" title="ВКС и переговорные">
+                    <div class="orders-category-card__icon-wrap orders-category-card__icon-wrap--account">
+                        <img src="{% static 'orders/img/conference.svg' %}"
+                             class="category-icon orders-category-card__icon orders-category-card__icon--account"
+                             data-url="{% url 'orders:order_vks_create' %}"
+                             alt="ВКС"
+                             title="ВКС и переговорные"
+                        />
+                    </div>
+                    <div class="orders-category-card__content">
+                        <div class="orders-category-card__badge">Связь и встречи</div>
+                        <div class="orders-category-card__title">ВКС</div>
+                        <div class="orders-category-card__text">Подготовка переговорных, подключение, сопровождение и помощь с оборудованием.</div>
+                    </div>
+                    <span class="orders-category-card__arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="orders-home__support-grid">
+        <section class="orders-home__support-card">
+            <div class="orders-home__section-eyebrow">Быстрые сценарии</div>
+            <h2 class="orders-home__section-title">С чего начать</h2>
+            <div class="orders-home__support-list">
+                <div class="orders-home__support-item">
+                    <span class="orders-home__support-icon"><i class="bi bi-printer"></i></span>
+                    <div>
+                        <div class="orders-home__support-item-title">Нужно заправить картридж или проверить МФУ</div>
+                        <div class="orders-home__support-item-text">Откройте категорию «Принтеры и МФУ» и выберите нужную подкатегорию.</div>
+                    </div>
+                </div>
+                <div class="orders-home__support-item">
+                    <span class="orders-home__support-icon"><i class="bi bi-truck"></i></span>
+                    <div>
+                        <div class="orders-home__support-item-title">Нужно оформить поездку</div>
+                        <div class="orders-home__support-item-text">В категории «Служебный транспорт» можно сразу собрать маршрут из нескольких точек.</div>
+                    </div>
+                </div>
+                <div class="orders-home__support-item">
+                    <span class="orders-home__support-icon"><i class="bi bi-pc-display"></i></span>
+                    <div>
+                        <div class="orders-home__support-item-title">Проблема с рабочим местом</div>
+                        <div class="orders-home__support-item-text">Выберите «Компьютеры», чтобы описать неисправность или нужную настройку.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="orders-home__support-card orders-home__support-card--accent">
+            <div class="orders-home__section-eyebrow">Подсказка</div>
+            <h2 class="orders-home__section-title">Что помогает получить решение быстрее</h2>
+            <ul class="orders-home__tips">
+                <li>Указывайте точный кабинет, адрес или место, где нужна помощь.</li>
+                <li>В комментарии коротко опишите задачу без общих формулировок.</li>
+                <li>Если обращение срочное, добавьте время или дедлайн в тексте заявки.</li>
+                <li>Следите за статусом в разделе «Мои заявки» и открывайте карточку для деталей.</li>
+            </ul>
+        </section>
+    </div>
+</section>
+{% endblock content %}

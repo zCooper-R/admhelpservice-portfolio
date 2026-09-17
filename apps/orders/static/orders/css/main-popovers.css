@@ -1,0 +1,17 @@
+﻿/* ============================= */
+/*         POPOVER HELP          */
+/* ============================= */
+.popover-help-wrap { position: relative; display: inline-flex; align-items: center; margin-left: .35rem; }
+.popover-help-wrap .js-toggle-help { display: inline-flex; align-items: center; justify-content: center; width: 1.4rem; height: 1.4rem; border-radius: 999px; background: rgba(90,176,255,.14); color: #98dcff; font-size: .92rem; transition: background-color .2s ease, color .2s ease, transform .2s ease; }
+.popover-help-wrap .js-toggle-help:hover, .popover-help-wrap .js-toggle-help:focus-visible { color: #fff; background: rgba(90,176,255,.28); transform: translateY(-1px); }
+.popover_help { position: fixed; z-index: 1065; padding: .95rem; border: 1px solid rgba(133,206,255,.16); border-radius: 1.05rem; background: radial-gradient(circle at top right, rgba(72,167,255,.16), transparent 28%), linear-gradient(145deg, rgba(18,24,34,.98), rgba(13,18,27,.99)); box-shadow: 0 1.15rem 2.2rem rgba(0,0,0,.34); display: none; overflow-y: auto; }
+.popover_help::before { content: "Подсказка по подкатегориям"; display: block; margin-bottom: .75rem; color: #9adfff; font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.popover_help .list-group { gap: .55rem; }
+.popover_help .list-group-item { padding: .8rem .9rem; border-radius: .85rem !important; background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.08) !important; line-height: 1.5; }
+.popover_help li { color: #eef3f7; }
+.popover_help li b { display: block; margin-bottom: .18rem; color: #fff; }
+.custom-popover, .tooltip { --bs-popover-bg: rgba(13,18,27,.98); --bs-popover-border-color: rgba(133,206,255,.16); --bs-popover-header-bg: rgba(72,167,255,.14); --bs-popover-header-color: #f8fbff; --bs-popover-body-color: #eaf3fb; --bs-popover-max-width: 22rem; --bs-tooltip-bg: rgba(13,18,27,.98); --bs-tooltip-color: #eef5fb; --bs-tooltip-opacity: 1; }
+.custom-popover .popover-header { border-bottom: 1px solid rgba(255,255,255,.08); font-weight: 700; }
+.custom-popover .popover-body { line-height: 1.5; }
+.tooltip .tooltip-inner { max-width: 19rem; padding: .6rem .75rem; border: 1px solid rgba(133,206,255,.16); border-radius: .8rem; background: radial-gradient(circle at top right, rgba(72,167,255,.14), transparent 30%), linear-gradient(145deg, rgba(13,18,27,.98), rgba(17,23,34,.98)); box-shadow: 0 .85rem 1.8rem rgba(0,0,0,.28); color: #eef5fb; line-height: 1.45; text-align: left; }
+.tooltip .tooltip-arrow::before { border-left-color: rgba(13,18,27,.98) !important; border-right-color: rgba(13,18,27,.98) !important; border-top-color: rgba(13,18,27,.98) !important; border-bottom-color: rgba(13,18,27,.98) !important; }

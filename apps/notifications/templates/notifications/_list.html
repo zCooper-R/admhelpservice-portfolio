@@ -1,0 +1,60 @@
+{% if notifications %}
+    <div class="notifications-feed">
+        {% for notification in notifications %}
+            <a
+                href="{% url 'notifications:open' notification.id %}"
+                class="notifications-feed__item {% if notification.is_read %}is-read{% else %}is-unread{% endif %}"
+            >
+                <div class="notifications-feed__state"></div>
+                <div class="notifications-feed__content">
+                    <div class="notifications-feed__header">
+                        <div>
+                            <h3 class="notifications-feed__title">{{ notification.title }}</h3>
+                            <div class="notifications-feed__meta">
+                                <span>{{ notification.created_at|date:"d.m.Y H:i" }}</span>
+                                {% if notification.actor %}
+                                    <span>Изменил: {{ notification.actor }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <span class="notifications-feed__badge {% if notification.is_read %}is-read{% else %}is-unread{% endif %}">
+                            {% if notification.is_read %}Прочитано{% else %}Новое{% endif %}
+                        </span>
+                    </div>
+                    <p class="notifications-feed__body">{{ notification.body }}</p>
+                </div>
+                <i class="bi bi-chevron-right notifications-feed__chevron"></i>
+            </a>
+        {% endfor %}
+    </div>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="mt-4" aria-label="Пагинация уведомлений">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                    </li>
+                {% endif %}
+                <li class="page-item active">
+                    <span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+                </li>
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% else %}
+    <div class="notifications-empty-state">
+        <div class="notifications-empty-state__icon">
+            <i class="bi bi-bell-slash"></i>
+        </div>
+        <h3 class="notifications-empty-state__title">Пока ничего нового</h3>
+        <p class="notifications-empty-state__text">
+            Когда по вашим заявкам появятся важные изменения, они сразу отобразятся здесь.
+        </p>
+    </div>
+{% endif %}

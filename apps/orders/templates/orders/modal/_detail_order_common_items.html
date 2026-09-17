@@ -1,0 +1,55 @@
+<div class="orders-detail-grid">
+    <div class="orders-detail-card orders-detail-card--accent">
+        <div class="orders-detail-card__label">Подразделение</div>
+        <div class="orders-detail-card__value">{{ object.departament }}</div>
+    </div>
+    <div class="orders-detail-card orders-detail-card--accent">
+        <div class="orders-detail-card__label">Статус</div>
+        <div class="orders-detail-card__value" data-order-status-value>{{ object.get_status_display }}</div>
+    </div>
+    <div class="orders-detail-card orders-detail-card--accent">
+        <div class="orders-detail-card__label">Ожидание</div>
+        <div class="orders-detail-card__value" data-order-waiting-value>{{ waiting_info.label|default:wrapper_order.get_waiting_for_display|default:"Не ожидает ответа" }}</div>
+        <div class="orders-detail-card__meta{% if waiting_info.sla_state %} orders-detail-card__meta--{{ waiting_info.sla_state }}{% endif %}" data-order-waiting-detail{% if not waiting_info.detail %} hidden{% endif %}>{{ waiting_info.detail }}</div>
+    </div>
+    <div class="orders-detail-card orders-detail-card--accent">
+        <div class="orders-detail-card__label">Дата создания</div>
+        <div class="orders-detail-card__value">{{ object.created_at|date:"d.m.Y H:i" }}</div>
+    </div>
+    {% if object.get_category_display %}
+        <div class="orders-detail-card">
+            <div class="orders-detail-card__label">Подкатегория</div>
+            <div class="orders-detail-card__value">{{ object.get_category_display }}</div>
+        </div>
+    {% endif %}
+    <div class="orders-detail-card">
+        <div class="orders-detail-card__label">Инициатор</div>
+        <div class="orders-detail-card__value">{{ object.client }}</div>
+    </div>
+    <div class="orders-detail-card">
+        <div class="orders-detail-card__label">Телефон</div>
+        <div class="orders-detail-card__value">{{ object.phone }}</div>
+    </div>
+    <div class="orders-detail-card">
+        <div class="orders-detail-card__label">Адрес</div>
+        <div class="orders-detail-card__value">
+            {{ object.address }}{% if object.cabinet %}, каб. {{ object.cabinet }}{% endif %}
+        </div>
+    </div>
+    <div class="orders-detail-card">
+        <div class="orders-detail-card__label">Исполнитель</div>
+        <div class="orders-detail-card__value">
+            {% if object.support_specialist %}
+                {{ object.support_specialist.user|default:object.support_specialist }}
+            {% else %}
+                Не назначен
+            {% endif %}
+        </div>
+    </div>
+    {% if object.description %}
+        <div class="orders-detail-card orders-detail-card--wide">
+            <div class="orders-detail-card__label">Комментарий</div>
+            <div class="orders-detail-card__value orders-detail-card__value--text">{{ object.description|linebreaks }}</div>
+        </div>
+    {% endif %}
+</div>

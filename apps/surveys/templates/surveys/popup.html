@@ -1,0 +1,40 @@
+{% if request.user.is_authenticated %}
+<div
+    id="surveyPopupRoot"
+    data-current-popup-url="{% url 'surveys:current_popup' %}"
+    data-submit-popup-url="{% url 'surveys:submit_popup' %}"
+    data-snooze-hours="24"
+>
+    <div class="modal fade survey-modal" id="surveyCampaignModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content survey-modal-shell">
+                <div class="survey-modal-header">
+                    <div class="survey-modal-heading">
+                        <div class="survey-modal-kicker">Обратная связь</div>
+                        <h5 class="survey-modal-title" id="surveyCampaignModalTitle">Опрос</h5>
+                        <div class="survey-modal-subtitle" id="surveyCampaignModalSubtitle"></div>
+                    </div>
+                    <button type="button" class="btn-close survey-modal-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="survey-modal-body">
+                    <div id="surveyCampaignAlert" class="alert d-none" role="alert"></div>
+                    <div class="survey-modal-intro">
+                        <div id="surveyCampaignDescription" class="survey-modal-description"></div>
+                        <div class="survey-help">Опрос короткий и помогает нам точнее дорабатывать сервис.</div>
+                    </div>
+                    <form id="surveyCampaignForm" novalidate>
+                        <div id="surveyCampaignQuestions"></div>
+                        <div class="survey-modal-footer">
+                            <div class="survey-modal-footer__note" id="surveyCampaignSnoozeNote">Если сейчас неудобно, напомним завтра.</div>
+                            <div class="survey-modal-actions">
+                                <button type="button" class="btn btn-outline-secondary" id="surveyCampaignSnoozeButton">Позже</button>
+                                <button type="submit" class="btn btn-primary" id="surveyCampaignSubmitButton">Отправить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

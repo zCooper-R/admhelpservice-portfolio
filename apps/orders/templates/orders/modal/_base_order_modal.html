@@ -1,0 +1,28 @@
+<div class="modal fade text-black orders-modal" id="orderFormModal" data-order-id="{% firstof wrapper_order.id object.id '' %}" {% block modal_extra_attributes %}{% endblock %} tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable {% block modal_dialog_class %}{% endblock modal_dialog_class %}">
+        <div class="modal-content orders-modal-shell">
+            {% block modal_form_open %}
+            <form novalidate name="orderForm" id="{% block form_id %}generic-form{% endblock form_id %}" method="POST" action="{{ request.path }}">
+                {% csrf_token %}
+            {% endblock modal_form_open %}
+                <div class="modal-header orders-modal-header">
+                    <div class="orders-modal-heading">
+                        <div class="orders-modal-kicker">{% block modal_kicker %}Заявка{% endblock modal_kicker %}</div>
+                        <h3 class="modal-title orders-modal-title">{% block modal_title %}Новая заявка{% endblock modal_title %}</h3>
+                    </div>
+                    <button type="button" class="btn-close orders-modal-close" data-bs-dismiss="modal" title="Закрыть" aria-label="Close"></button>
+                </div>
+                <div class="modal-body orders-modal-body" {% block modal_body_attributes %}{% endblock modal_body_attributes %}>
+                    {% block modal_body_content %}{% endblock modal_body_content %}
+                </div>
+                <div class="modal-footer orders-modal-footer">
+                    {% block modal_footer %}
+                        <button type="submit" class="btn btn-primary">Создать</button>
+                    {% endblock modal_footer %}
+                </div>
+            {% block modal_form_close %}
+            </form>
+            {% endblock modal_form_close %}
+        </div>
+    </div>
+</div>

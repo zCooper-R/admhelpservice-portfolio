@@ -1,0 +1,64 @@
+<article
+    class="order-thread__message
+        order-thread__message--{{ message.message_type }}
+        order-thread__message--{{ message.visibility }}
+        {% if message.message_type == 'public_reply' %}
+            {% if message.author_id == request.user.id %}
+                order-thread__message--mine
+            {% else %}
+                order-thread__message--incoming
+            {% endif %}
+        {% endif %}
+        {% if message.is_deleted %}order-thread__message--deleted{% endif %}"
+    id="order-thread-message-{{ message.id }}"
+    data-message-id="{{ message.id }}"
+>
+    <header class="order-thread__message-header">
+        <div class="order-thread__message-heading">
+            <span class="order-thread__badge
+                {% if message.message_type == 'public_reply' %}order-thread__badge--public
+                {% elif message.message_type == 'internal_note' %}order-thread__badge--internal
+                {% else %}order-thread__badge--system{% endif %}">
+                {% if message.message_type == 'public_reply' %}
+                    {% if message.author_id == request.user.id %}
+                        Мой ответ
+                    {% else %}
+                        Ответ
+                    {% endif %}
+                {% elif message.message_type == 'internal_note' %}
+                    Внутренняя заметка
+                {% else %}
+                    Системное событие
+                {% endif %}
+            </span>
+            <strong class="order-thread__author">{{ message.author|default:"Система" }}</strong>
+        </div>
+        <span class="order-thread__timestamp">{{ message.created_at|date:"d.m.Y H:i" }}</span>
+    </header>
+    <div class="order-thread__message-body">
+        {% if message.is_deleted %}
+            <em class="text-muted">Сообщение удалено.</em>
+        {% elif message.body %}
+            {{ message.body|linebreaks }}
+        {% else %}
+            <em class="text-muted">{{ message.get_system_event_type_display|default:"Системное событие" }}</em>
+        {% endif %}
+    </div>
+    {% if message.attachments.all %}
+        <div class="order-thread__attachments">
+            <div class="order-thread__attachments-title">Вложения</div>
+            {% for attachment in message.attachments.all %}
+                <a
+                    href="{% url 'order_communication:attachment_download' attachment.id %}"
+                    class="order-thread__attachment-item"
+                >
+                    <span class="order-thread__attachment-main">
+                        <span class="order-thread__attachment-icon" aria-hidden="true"></span>
+                        <span class="order-thread__attachment-name">{{ attachment.original_name }}</span>
+                    </span>
+                    <span class="order-thread__attachment-size">{{ attachment.size|filesizeformat }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</article>

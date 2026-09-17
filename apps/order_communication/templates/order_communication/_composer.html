@@ -1,0 +1,29 @@
+<form
+    method="post"
+    action="{{ action_url }}"
+    enctype="multipart/form-data"
+    data-order-thread-composer
+    data-composer-type="{{ composer_type }}"
+    class="order-thread__composer order-thread__composer--{{ composer_type }}"
+>
+    {% csrf_token %}
+    <div class="order-thread__composer-header">
+        <div>
+            <div class="order-thread__composer-title">{{ composer_title }}</div>
+            <div class="order-thread__composer-hint">{{ composer_hint }}</div>
+        </div>
+    </div>
+    <div class="order-thread__composer-body">
+        {{ form.body }}
+    </div>
+    <div class="order-thread__composer-footer">
+        <label class="order-thread__file-button btn btn-outline-secondary btn-sm mb-0">
+            <span class="order-thread__file-text">Прикрепить файл</span>
+            {{ form.attachments }}
+        </label>
+        <div class="order-thread__file-list" data-order-thread-file-list hidden></div>
+        <button type="submit" class="btn btn-primary btn-sm order-thread__submit-button">
+            {{ submit_label }}
+        </button>
+    </div>
+</form>

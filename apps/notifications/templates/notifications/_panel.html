@@ -1,0 +1,68 @@
+<div class="notifications-panel">
+    <div class="notifications-panel__header">
+        <div>
+            <h2 class="notifications-panel__title">Уведомления</h2>
+            <p class="notifications-panel__subtitle">
+                {% if unread_count %}
+                    Непрочитанных: {{ unread_count_display }}
+                {% else %}
+                    Новых уведомлений пока нет
+                {% endif %}
+            </p>
+        </div>
+        <a class="notifications-panel__link" href="{{ list_url }}">Все</a>
+    </div>
+
+    {% if notifications %}
+        <div class="notifications-panel__actions">
+            <form method="post" action="{% url 'notifications:mark_all_read' %}" data-notification-action>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-light">Прочитать все</button>
+            </form>
+        <form
+            method="post"
+            action="{% url 'notifications:delete_all' %}"
+            data-notification-action
+            data-confirm="Удалить всю историю уведомлений?"
+            data-confirm-title="Очистка уведомлений"
+            data-confirm-kicker="Уведомления"
+            data-confirm-heading="Подтвердите очистку"
+            data-confirm-hint="Это действие удалит всю историю уведомлений без возможности восстановления."
+            data-confirm-button-text="Очистить"
+            data-confirm-button-class="btn-danger"
+            data-confirm-icon="fas fa-trash"
+        >
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-danger">Очистить</button>
+            </form>
+        </div>
+
+        <div class="notifications-panel__list">
+            {% for notification in notifications %}
+                <a
+                    href="{% url 'notifications:open' notification.id %}"
+                    class="notifications-panel__item {% if notification.is_read %}is-read{% else %}is-unread{% endif %}"
+                >
+                    <div class="notifications-panel__item-main">
+                        <div class="notifications-panel__item-title-row">
+                            <span class="notifications-panel__item-title">{{ notification.title }}</span>
+                            {% if not notification.is_read %}
+                                <span class="notifications-panel__item-dot"></span>
+                            {% endif %}
+                        </div>
+                        <p class="notifications-panel__item-body">{{ notification.body }}</p>
+                    </div>
+                    <time class="notifications-panel__item-time">{{ notification.created_at|date:"d.m H:i" }}</time>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="notifications-panel__empty">
+            <div class="notifications-empty-state__icon">
+                <i class="bi bi-bell-slash"></i>
+            </div>
+            <h3 class="notifications-empty-state__title">Пусто</h3>
+            <p class="notifications-empty-state__text">Новые события по заявкам появятся здесь автоматически.</p>
+        </div>
+    {% endif %}
+</div>

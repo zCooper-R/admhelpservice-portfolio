@@ -1,0 +1,16 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <h1>Active directory manager</h1>
+    <div class="row">
+        <ul>
+            <li><a class="link-light" href="{% url 'orders:ad_user_create' %}">Создать УЗ</a></li>
+            <li><a class="link-light" href="{% url 'orders:ad_user_info' %}">Информация об УЗ</a></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+{% endblock content %}

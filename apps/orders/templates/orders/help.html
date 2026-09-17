@@ -1,0 +1,153 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Помощь{% endblock title %}
+
+{% block content %}
+    <section id="help_page" class="help-page">
+        <div class="help-page__hero">
+            <div>
+                <div class="help-page__eyebrow">Справочный центр</div>
+                <h1 class="help-page__title">Как работает сервис обращений</h1>
+                <p class="help-page__subtitle">
+                    Здесь можно быстро понять, куда направить обращение, что подготовить перед отправкой
+                    и в каких случаях лучше связаться срочно, не дожидаясь очереди.
+                </p>
+            </div>
+            <div class="help-page__hero-card">
+                <div class="help-page__hero-card-label">3 шага</div>
+                <div class="help-page__hero-card-title">
+                    <div>1. Выберите подходящую категорию</div>
+                    <div>2. Кратко опишите задачу и нужные детали</div>
+                    <div>3. Следите за статусом в разделе «Мои заявки»</div>
+                </div>
+                <div class="help-page__hero-card-text">
+                    Основной путь - подать обращение через систему. Телефоны ниже используйте только для срочных случаев.
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-xl-7">
+                <div class="help-page__panel">
+                    <div class="help-page__panel-header">
+                        <div class="help-page__panel-eyebrow">Категории</div>
+                        <h2 class="help-page__panel-title">По каким вопросам можно обращаться</h2>
+                    </div>
+
+                    <div class="help-page__grid">
+                        <article class="help-topic-card">
+                            <div class="help-topic-card__icon"><i class="bi bi-printer"></i></div>
+                            <h3 class="help-topic-card__title">Принтеры и МФУ</h3>
+                            <p class="help-topic-card__text">
+                                Заправка картриджей, замена расходных материалов и технические вопросы по печатной технике.
+                            </p>
+                            <div class="help-topic-card__meta">Что указать в заявке: кабинет, модель устройства, нужна заправка или есть техническая проблема.</div>
+                            <div class="help-topic-card__meta">Срочно по телефону: <span>+7 910 108-70-53</span></div>
+                        </article>
+
+                        <article class="help-topic-card">
+                            <div class="help-topic-card__icon"><i class="bi bi-car-front-fill"></i></div>
+                            <h3 class="help-topic-card__title">Служебный транспорт</h3>
+                            <p class="help-topic-card__text">
+                                Поездки, маршруты, точки прибытия, возврат и взаимодействие с транспортным специалистом.
+                            </p>
+                            <div class="help-topic-card__meta">Что указать в заявке: дату и время поездки, маршрут, точки прибытия и контактный номер.</div>
+                            <div class="help-topic-card__meta">Срочно по телефону: <span>7-57-91, вн. 2117</span></div>
+                        </article>
+
+                        <article class="help-topic-card">
+                            <div class="help-topic-card__icon"><i class="bi bi-pc-display"></i></div>
+                            <h3 class="help-topic-card__title">Компьютеры</h3>
+                            <p class="help-topic-card__text">
+                                Аппаратные и программные проблемы рабочих мест, техники и пользовательского окружения.
+                            </p>
+                            <div class="help-topic-card__meta">Что указать в заявке: рабочее место или устройство, кабинет, что не работает и есть ли сообщение об ошибке.</div>
+                            <div class="help-topic-card__meta">Срочно по телефону: <span>7-58-59, вн. 2359</span></div>
+                        </article>
+
+                        <article class="help-topic-card">
+                            <div class="help-topic-card__icon"><i class="bi bi-camera-video-fill"></i></div>
+                            <h3 class="help-topic-card__title">ВКС</h3>
+                            <p class="help-topic-card__text">
+                                Подготовка видеоконференций, создание встреч, ссылки для подключения, оборудование и сопровождение презентаций.
+                            </p>
+                            <div class="help-topic-card__meta">Что указать в заявке: дату и время, нужна встреча или сопровождение, площадку и число участников.</div>
+                            <div class="help-topic-card__meta">Срочно по телефону: <span>7-58-59, вн. 2359</span></div>
+                        </article>
+
+                        <article class="help-topic-card">
+                            <div class="help-topic-card__icon"><i class="bi bi-building-gear"></i></div>
+                            <h3 class="help-topic-card__title">АХО</h3>
+                            <p class="help-topic-card__text">
+                                Вода, уборка, хозяйственные вопросы, мелкий ремонт и материальное обеспечение.
+                            </p>
+                            <div class="help-topic-card__meta">Что указать в заявке: кабинет, что требуется или что сломалось, и насколько срочно нужна помощь.</div>
+                            <div class="help-topic-card__meta">Срочно по телефону: <span>7-87-09, вн. 2409</span></div>
+                        </article>
+
+                        <article class="help-topic-card">
+                            <div class="help-topic-card__icon"><i class="bi bi-person-badge-fill"></i></div>
+                            <h3 class="help-topic-card__title">Учётные записи</h3>
+                            <p class="help-topic-card__text">
+                                Создание и сопровождение доменных и внутренних учётных записей, изменение параметров доступа.
+                            </p>
+                            <div class="help-topic-card__meta">Что указать в заявке: ФИО, подразделение, нужна новая учётная запись или изменение доступа, и к какому сроку.</div>
+                            <div class="help-topic-card__meta">Срочно по телефону: <span>7-58-59, вн. 2359</span></div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-5">
+                <div class="help-page__panel help-page__panel--sticky">
+                    <div class="help-page__panel-header">
+                        <div class="help-page__panel-eyebrow">Обратная связь</div>
+                        <h2 class="help-page__panel-title">Остались вопросы?</h2>
+                        <p class="mb-2 help-page__panel-text">
+                            Если не уверены в категории, нужно уточнение по работе сервиса или есть идея по улучшению,
+                            напишите через форму ниже.
+                        </p>
+                    </div>
+
+                    <div class="help-page__panel-text mb-3">
+                        Срочная связь вне очереди нужна, если работа остановлена, проблема мешает началу мероприятия,
+                        недоступен критичный сервис или ждать ответа в заявке уже нельзя.
+                    </div>
+
+                    <form action="" method="POST" class="help-contact-form">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% if field.errors %}
+                                <div class="help-contact-form__errors">
+                                    {% for error in field.errors %}
+                                        <div><i class="bi bi-exclamation-triangle-fill"></i> <strong>{{ error|escape }}</strong></div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if field.help_text %}
+                                <div class="form-helptext">{{ field.help_text }}</div>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="form-floating mb-3 text-black">
+                            {% render_field form.email class="form-control help-contact-form__control" %}
+                            <label class="form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        </div>
+
+                        <div class="form-floating mb-3 text-black">
+                            {% render_field form.message class="form-control help-contact-form__control help-contact-form__control--message" %}
+                            <label class="form-label" for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 help-contact-form__submit">
+                            <i class="bi bi-send-fill"></i>
+                            <span>Отправить сообщение</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

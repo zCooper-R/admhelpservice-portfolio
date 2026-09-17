@@ -1,0 +1,126 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% load helpers %}
+
+{% block title %}Задачи на исполнение{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'orders/css/vendor/dataTables2.3.2.jqueryui.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'orders/css/datatables.css' %}"/>
+{% endblock head %}
+
+{% block content %}
+    <section class="orders-page-shell">
+        <div class="orders-page-shell__hero">
+            <div>
+                <div class="orders-page-shell__eyebrow">Рабочий контур</div>
+                <h1 class="orders-page-shell__title">Задачи на исполнение</h1>
+                <p class="orders-page-shell__subtitle">
+                    Рабочая очередь для исполнения и контроля: сначала просроченные, затем обращения на грани SLA
+                    и задачи, где сейчас нужен ответ исполнителя.
+                </p>
+            </div>
+            <div class="orders-page-shell__hero-note">
+                <div class="orders-page-shell__hero-note-label">Фокус</div>
+                <div class="orders-page-shell__hero-note-text">
+                    Смотрите на «Ожидание» и SLA: так быстрее видно, что брать в работу сейчас, а что пока ждёт инициатора.
+                </div>
+            </div>
+        </div>
+
+        <div class="orders-table-card">
+            <div class="orders-table-card__header">
+                <div>
+                    <div class="orders-table-card__eyebrow">Исполнение</div>
+                    <h2 class="orders-table-card__title">Актуальные задачи</h2>
+                </div>
+                <p class="orders-table-card__note">
+                    Проверьте просроченные заявки, затем обращения на грани SLA.
+                    Поле «Ожидание» подсказывает, где нужен ваш ответ, а где очередь пока стоит за инициатором.
+                </p>
+            </div>
+
+            <div class="orders-table-card__body">
+                <!-- TODO: when backend data is available, consider operational columns such as "Срочность", "Следующее действие", "Кому назначено", "Последнее обновление". -->
+                <div class="orders-sla-filter" data-sla-filter-group>
+                    <span class="orders-sla-filter__label">SLA:</span>
+                    <button type="button" class="orders-sla-filter__button is-active" data-sla-filter="all">Все</button>
+                    <button type="button" class="orders-sla-filter__button" data-sla-filter="overdue">Просрочено</button>
+                    <button type="button" class="orders-sla-filter__button" data-sla-filter="warning">На грани</button>
+                    <button type="button" class="orders-sla-filter__button" data-sla-filter="none">Без SLA</button>
+                </div>
+                <table id="tasks_list" class="table table-sm table-striped table-dark table-hover table-bordered orders-data-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Категория</th>
+                        <th scope="col">Инициатор</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Ожидание</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col">Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block extra_js %}
+    <script type="module">
+        import { initDataTable } from "{% static 'orders/js/utils/datatables-init.js' %}";
+        import {
+            renderCategoryCell,
+            renderClientCell,
+            renderStatusWithIcon,
+            renderWaitingForCell,
+            renderDetailButton
+        } from "{% static 'orders/js/renderers.js' %}";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initDataTable({
+                tableId: "tasks_list",
+                ajaxUrl: "{% url 'orders:tasks_list' %}",
+                csrfToken: "{{ csrf_token }}",
+                slaFilterSelector: "[data-sla-filter-group]",
+                searchPlaceholder: "Поиск по категории, инициатору, статусу, ожиданию, дате",
+                columns: [
+                    {
+                        data: null,
+                        render: (data, type, row, meta) =>
+                            meta.row + 1 + meta.settings._iDisplayStart,
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: "category",
+                        render: renderCategoryCell,
+                    },
+                    {
+                        data: "client",
+                        render: renderClientCell,
+                    },
+                    {
+                        data: "status",
+                        render: renderStatusWithIcon,
+                    },
+                    {
+                        data: "waiting_for",
+                        render: renderWaitingForCell,
+                    },
+                    { data: "created_at" },
+                    {
+                        data: "url",
+                        orderable: false,
+                        searchable: false,
+                        render: renderDetailButton,
+                    },
+                ],
+            });
+        });
+    </script>
+
+    <script src="{% static 'orders/js/vendor/dataTables2.3.2.min.js' %}"></script>
+{% endblock extra_js %}

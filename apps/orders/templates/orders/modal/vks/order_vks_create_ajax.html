@@ -1,0 +1,9 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+
+{% block modal_extra_attributes %}data-vks-organize="{{ categories.ORGANIZE }}" data-vks-connect="{{ categories.CONNECT }}" data-vks-presentation="{{ categories.PRESENTATION }}"{% endblock %}
+{% block form_id %}vks{% endblock %}
+{% block modal_title %}Видеоконференцсвязь{% endblock %}
+
+{% block modal_body_content %}
+    {% include 'orders/modal/vks/order_vks_fields.html' %}
+{% endblock %}

@@ -1,0 +1,30 @@
+<div class="backup-status-card backup-status-card--{{ item.status }}">
+    <div class="backup-status-card__header">
+        <div class="backup-status-card__heading">
+            <span class="backup-status-card__icon backup-status-card__icon--{{ item.status }}">
+                <i class="bi {{ icon }}"></i>
+            </span>
+            <div>
+                <div class="backup-status-card__eyebrow">PostgreSQL</div>
+                <h2 class="backup-status-card__title">{{ title }}</h2>
+            </div>
+        </div>
+        <span class="backup-status-card__status backup-status-card__status--{{ item.status }}">
+            {% if item.found %}Найден{% else %}Не найден{% endif %}
+        </span>
+    </div>
+    {% if item.found %}
+        <dl class="backup-status-card__facts">
+            <dt>Файл</dt>
+            <dd>{{ item.file_name }}</dd>
+            <dt>Дата</dt>
+            <dd>{{ item.created_at|date:'d.m.Y H:i:s' }}</dd>
+            <dt>Размер</dt>
+            <dd>{{ item.size_display }}</dd>
+            <dt>Возраст</dt>
+            <dd>{{ item.age_display }}</dd>
+        </dl>
+    {% else %}
+        <div class="backup-status-card__message">{{ item.message }}</div>
+    {% endif %}
+</div>

@@ -1,0 +1,12 @@
+{% extends 'orders/modal/_base_order_modal.html' %}
+{% load order_tags %}
+{% load widget_tweaks %}
+
+{% block modal_dialog_class %}orders-modal-dialog--transport{% endblock modal_dialog_class %}
+{% block form_id %}transport{% endblock %}
+
+{% block modal_title %}Служебный транспорт{% endblock %}
+
+{% block modal_body_content %}
+    {% include 'orders/modal/transport/order_transport_fields.html' %}
+{% endblock %}
